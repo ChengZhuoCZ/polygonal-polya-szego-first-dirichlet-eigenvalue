@@ -1,0 +1,2189 @@
+% Compile with pdfLaTeX. Run twice to resolve internal references.
+\documentclass[11pt,a4paper,reqno]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,mathtools,amssymb,booktabs,microtype}
+\usepackage[margin=27mm,top=26mm,bottom=26mm]{geometry}
+\usepackage{tikz}
+\usepackage[unicode,bookmarksnumbered,bookmarksdepth=2]{hyperref}
+\definecolor{ink}{HTML}{214555}
+\hypersetup{colorlinks=true,linkcolor=ink,citecolor=ink,urlcolor=ink,
+  pdftitle={The polygonal Pólya–Szegő inequality for the first Dirichlet eigenvalue},
+  pdfauthor={},pdfsubject={A unified analytic proof for simple planar polygons}}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\numberwithin{equation}{section}
+\newcommand{\dd}{\,\mathrm d}
+\newcommand{\av}[1]{\overline{#1}}
+\newcommand{\davg}[1]{\langle #1\rangle}
+\newcommand{\norm}[1]{\left\|#1\right\|_2}
+\newcommand{\Cphi}{C_\phi}
+\newcommand{\Jcal}{\mathcal J}
+\newcommand{\D}{\mathbb D}
+\newcommand{\R}{\mathbb R}
+\DeclareMathOperator{\Var}{Var}
+\allowdisplaybreaks[1]
+\setcounter{tocdepth}{1}
+\emergencystretch=1.5em
+\raggedbottom
+
+\title[The first Dirichlet eigenvalue of a polygon]{The polygonal P\'olya--Szeg\H{o} inequality\\ for the first Dirichlet eigenvalue}
+\date{November 22, 2026}
+\subjclass[2020]{35P15, 49Q10, 35J05, 30C20}
+\keywords{First Dirichlet eigenvalue, polygonal Faber--Krahn inequality, conformal mapping, shape optimization, superlevel sets}
+\begin{document}
+\begin{abstract}
+Among simple planar polygons of prescribed area with at most $N$ sides, the regular
+$N$-gon uniquely minimizes the first Dirichlet eigenvalue, up to congruence.
+We give an analytic proof that treats every $N\ge3$ by the same argument.
+For convex polygons, a partition into mixed boundary value problems reduces
+the comparison to a global supporting-line inequality for isosceles triangles.
+A bound in terms of the number of convex vertices then reduces any putative
+minimizing sequence below the regular value to polygons with one reflex vertex.
+Compactness in that class yields a minimizer. At a nonconvex stationary polygon,
+the boundary pressure forces the ground state to have a disconnected superlevel
+set near its root-mean-square height. For an area-normalized eigenvalue no larger than that of the regular pentagon,
+a quantitative estimate on the disk gives connected superlevel sets throughout
+a fixed neighborhood of the same height. These two conclusions exclude nonconvex minimizers.
+\end{abstract}
+\maketitle
+
+
+\section{Introduction}\label{sec:main}
+
+The polygonal P\'olya--Szeg\H{o} problem asks which polygon of a prescribed
+area and side count has the smallest principal frequency. In the triangle and
+quadrilateral cases the extremizers are the equilateral triangle and the square
+\cite[pp.~158--159]{ps}. For more sides a Steiner symmetrization can increase the
+side count. Wang's preprint states the sharp eigenvalue comparison for all
+simple polygons with at most $N$ sides when $N\ge5$, together with results on
+torsional rigidity and stability \cite[Theorem~1.1]{wang}. Here we focus on the
+eigenvalue and give a proof with a single range of comparison angles for all
+$N\ge3$.
+
+A \emph{simple polygon} $P$ is the bounded open region enclosed by a polygonal
+Jordan curve. Merge adjacent collinear sides and denote the number of remaining
+sides by $n(P)$. A vertex is \emph{convex} if its interior angle is less than
+$\pi$, and \emph{reflex} if it is greater than $\pi$. Write $p(P)$ and $q(P)$ for
+their respective numbers, so that $p(P)+q(P)=n(P)$. For a regular $N$-gon
+$R_N$ of arbitrary size, set
+\[
+ \lambda_1(P)=\inf_{0\ne u\in H_0^1(P)}
+       \frac{\int_P |\nabla u|^2}{\int_P |u|^2},\qquad
+ J(P)=|P|\lambda_1(P),\qquad r_N=J(R_N),
+\]
+The functional $J$ is invariant under dilations.
+
+\begin{theorem}\label{thm:main}
+Let $N\ge3$ be an integer. Every simple polygon $P$ with $n(P)\le N$ satisfies
+\begin{equation}\label{eq:main}
+                         J(P)\ge r_N .
+\end{equation}
+Equality holds precisely when $P$ is similar to $R_N$. In particular, at fixed
+area $A>0$ the minimum is $r_N/A$ and the minimizer is unique up to rigid
+motions, including reflection. This holds both for exactly $N$ and for at most
+$N$ effective sides.
+\end{theorem}
+
+Two distinct issues arise in passing from convex to simple polygons. Even
+if every minimizer is convex, a minimizing sequence might leave the class of
+simple polygons in the limit. We first show that a polygon below $r_N$ would
+have exactly one reflex vertex. Cutting at that vertex yields two convex
+pieces and recovers a simple competitor in the limit, with control of both area
+and side count. We can then use stationarity to prove convexity of the attained
+minimizer.
+
+For the convex comparison, Section~\ref{sec:angles} develops Wang's mixed-cell
+inequality and balanced partition \cite[Lemmas~2.1 and~2.2]{wang}. The common
+opening of the regular cells is $2\pi/N$. We prove that the tangent to their
+spectral function is a strict global supporting line at every opening up to
+$2\pi/3$. The proof uses a sector near zero, the square spectrum near $\pi/2$,
+and the equilateral triangle at $2\pi/3$. In Section~\ref{sec:turns}, Wang's
+conformal coefficient identities and shifted Jensen inequality
+\cite[Lemmas~3.1--3.3]{wang} give a bound for polygons with at most $N-2$ convex
+vertices. The extension of the supporting-line argument, the common integral
+weight for the turning measure and the compactness argument of
+Section~\ref{sec:compact} follow the working manuscript \cite{unified}.
+
+Sections~\ref{sec:pressure}--\ref{sec:levels} develop the convexity argument
+in the manuscript made available by Zhuo Cheng \cite{cheng}. A stationary nonconvex
+polygon must have at least five sides. Thus every such minimizer has the regular
+pentagon available as a competitor. This gives a single spectral threshold at
+which the boundary pressure count and the disk estimates apply simultaneously.
+Section~\ref{sec:assembly} finishes the proof and identifies the equality case.
+Appendices~\ref{app:acute}--\ref{app:series} contain the estimates for the sector
+and the disk. We use the classical Faber--Krahn and Kohler--Jobin inequalities,
+the Schwarz--Christoffel formula, and standard rearrangement and spectral
+perturbation theory. All terminating decimals in estimates denote rational numbers.
+
+\tableofcontents
+
+\section{The sharp inequality for convex polygons}\label{sec:angles}
+\subsection{A mixed problem for each side}\label{sec:cell}
+
+Let $I_\alpha$ be the isosceles triangle of altitude one and apex angle
+$\alpha\in(0,\pi)$. For a polygon $Q$ with a designated base, denote by
+$\mu_D(Q)$ the lowest eigenvalue with Dirichlet condition on the base and
+Neumann condition on the rest of the boundary. Put
+\[
+ F(\alpha)=|I_\alpha|\mu_D(I_\alpha)=\tan(\alpha/2)\mu_D(I_\alpha).
+\]
+Every line perpendicular to the base cuts $I_\alpha$ in a segment of length
+at most one. The one-dimensional mixed Poincar\'e inequality gives
+$\mu_D(I_\alpha)\ge\pi^2/4$. Testing with distance to the base gives
+$\mu_D(I_\alpha)\le6$. In particular $F(0+)=0$ and $F(\pi-)=+\infty$.
+An affine change of variables to a fixed triangle gives continuity in between.
+
+\begin{lemma}[Mixed-cell comparison, Wang]\label{lem:cell}
+Suppose the two angles at the base of a convex polygon $Q$ are $\pi a$ and
+$\pi b$, with $C=a+b<1$. For $\alpha=\pi(1-C)$ one has
+\[
+                   |Q|\mu_D(Q)\ge F(\alpha).
+\]
+Equality holds precisely for an isosceles triangle on the designated base.
+\end{lemma}
+
+\begin{proof}
+Map the upper half-plane conformally onto $Q$ with $0$ and $\infty$
+corresponding to the ends of the base and the positive real axis to its
+interior. Write the other prevertices as $-e^{x_j}$. Their exterior angles
+are $\pi c_j$, where $c_j>0$ and $\sum c_j=C$. The substitution
+$z=e^{x+iy}$ identifies the half-plane with the strip
+$S=\R\times(0,\pi)$. By the Schwarz--Christoffel formula \cite{SC}, the
+pullback of area has density proportional to
+\[
+       e^{\delta x}\prod_j[\cosh(x-x_j)+\cos y]^{-c_j},
+       \qquad \delta=a-b .
+\]
+Normalize this density to a probability density $p$. Then
+$(|Q|\mu_D(Q))^{-1}$ is the supremum of $\int_S p u^2$ over nonnegative
+functions of unit Dirichlet energy and zero bottom trace. Indeed,
+conformal pullback preserves the energy and the zero trace locally on the
+open base. Integrating from that trace along vertical lines bounds the
+unweighted strip $L^2$ norm by the energy. Conversely, the density has
+exponentially decaying tails since $|\delta|<C$, and each corner singularity
+has order less than two. Thus $p\in L^r(S)$ for some $r>1$, and
+H\"older's inequality and the strip Sobolev embedding give the weighted
+integrability needed for the inverse change of variables. The mixed problem
+on the bounded polygon has a ground state.
+
+Represent each denominator by its gamma integral, put $v_j=vt_j$ with
+$\sum_j t_j=1$, and integrate out $v$. The remaining integral has simplex
+weight proportional to $\prod_j t_j^{c_j-1}$ and denominator
+$[\sum_jt_j\cosh(x-x_j)+\cos y]^C$. Write the horizontal sum as
+$K\cosh(x-\bar x)$, where
+\[
+ K^2=\left(\sum_jt_je^{x_j}\right)\left(\sum_jt_je^{-x_j}\right)\ge1 .
+\]
+After normalizing the components, $p$ is a probability mixture of horizontal
+translates of
+\[
+ p_{\delta,\kappa}\ \propto\ e^{\delta x}(\cosh x+\kappa\cos y)^{-C},
+ \qquad \kappa=K^{-1}.
+\]
+If two $x_j$ are distinct, then $\kappa<1$ throughout the open simplex.
+Horizontal translations preserve the trial space, so we can compare each
+component separately.
+
+Rearrange a trial function first in increasing order on each vertical slice,
+then in symmetric decreasing order on each horizontal slice. Call the result
+$v$. For the vertical step, reflect evenly about $y=\pi$, extend by zero, and
+rearrange about $\pi$. Rearrangement decreases the energy in the rearranged
+direction. In the transverse direction apply its $L^2$ contraction property to
+difference quotients of adjacent slices. The bottom trace stays zero, and the
+horizontal step preserves vertical order. Hence $v$ is nondecreasing in $y$
+and nonincreasing in $|x|$. The Hardy--Littlewood inequality bounds the original moment by its vertically
+rearranged value since $\partial_y\log p_{\delta,\kappa}
+=C\kappa\sin y/(\cosh x+\kappa\cos y)\ge0$.
+
+For the horizontal step, expand in nonnegative powers of
+$(1-\kappa\cos y)/(1+\cosh x)$. The density is a mixture
+$\sum_{k\ge0}w_{k,\delta,\kappa}\rho_{C+k,\delta}(x)\eta_{k,\kappa}(y)$,
+with probability weights and one-dimensional probability densities
+\[
+ \rho_{d,\delta}\propto e^{\delta x}(1+\cosh x)^{-d},\qquad
+ \eta_{k,\kappa}\propto(1-\kappa\cos y)^k .
+\]
+The Hardy--Littlewood inequality bounds each horizontal moment by the
+corresponding moment of $v^2$ against the symmetric decreasing rearrangement
+$\rho_{d,\delta}^*$.
+
+We compare this rearranged density with $\rho_{d,0}$. Let $[m-h,m+h]$ be a
+superlevel interval of the original density, and let $L,R$ be the absolute
+values of its logarithmic derivative at the two endpoints. As the logarithm
+of the level increases, the endpoint velocities are $1/L$ and $-1/R$.
+The absolute logarithmic derivative of the rearranged density at $h$ is
+therefore $2LR/(L+R)$. Write $r=\tanh(h/2)$ and $z=\tanh(m/2)$. The
+original logarithmic derivative is $\delta-d\tanh(x/2)$, so
+\[
+ \frac{2LR}{L+R}\le\frac{L+R}{2}
+ =dr\frac{1-z^2}{1-z^2r^2}\le dr
+ =-\partial_h\log\rho_{d,0}(h).
+\]
+Thus $\rho_{d,\delta}^*/\rho_{d,0}$ increases with $h$. Since both
+densities have mass one, $\rho_{d,0}$ gives at least as much mass to every
+centered interval. If $\delta\ne0$, equality of the endpoint values forces
+$m\ne0$, and the comparison is strict on every centered interval of positive
+finite length. Layer integration against $v^2$ gives strict gain for a
+nonzero trial function.
+
+Set $a_k(\kappa)=\int_S\rho_{C+k,0}\eta_{k,\kappa}v^2$. As $k$ increases,
+ratios of successive densities concentrate the horizontal mass at $x=0$ and
+move the vertical mass upward. Hence $a_k(\kappa)$ is nondecreasing in $k$.
+The horizontal normalizing integral is $2^d\mathrm B(d+\delta,d-\delta)$.
+Successive values of $w_{k,\delta,\kappa}/w_{k,0,\kappa}$ have ratio
+$1-\delta^2/(C+k)^2$. Replacing the weights by $w_{k,0,\kappa}$ therefore
+increases the average. At fixed $k$, increasing $\kappa$ gives a vertical
+likelihood ratio increasing in $X=-\cos y$. Thus $a_k(\kappa)\le a_k(1)$.
+For $k=1$ the gain is strict when $\kappa<1$, since every nonzero vertical
+slice of $v$ is nonconstant and has zero bottom trace. Finally, set
+$Z_k(\kappa)=\int_0^\pi(1+\kappa X)^k\dd y$. Then
+\[
+ Z_{k+1}(\kappa)/Z_k(\kappa)=1+\kappa\mathbb E_{k,\kappa}X .
+\]
+where the expectation is under $\eta_{k,\kappa}$. Symmetry gives
+$\mathbb E_{k,\kappa}X\ge0$, and the likelihood-ratio ordering makes it
+nondecreasing in $\kappa$. Consequently $w_{k,0,1}/w_{k,0,\kappa}$ is
+nondecreasing in $k$. All these comparisons of averages follow from
+nonnegative covariance of functions monotone in the same direction, with
+truncation if needed.
+
+Each trial moment is now bounded by the optimum for $p_{0,1}$, the density
+of $I_\alpha$. Restoring unit energy after rearrangement can only increase
+the moment. Apply the strict comparisons to the maximizer on $Q$ and
+integrate over the simplex. Equality requires $\delta=0$ and exactly one
+prevertex off the base. These conditions give the stated isosceles triangle.
+\end{proof}
+
+\subsection{Balancing the cell areas}\label{sec:balance}
+
+Give each side of a convex polygon $P$ a positive weight $w_i$. Let $Q_i$
+consist of the points for which $w_i$ times the distance to the supporting
+line of side $i$ is least. The cells are convex and their interiors are disjoint. At a relative interior
+point of side $i$ its weighted distance is zero while all the others are
+positive. Thus $Q_i$ occupies a neighborhood of that point in $P$ and has
+positive area. At vertex $i$, let $\theta_i$ be the angle
+between sides $i-1$ and $i$, and let $t_i$ be the angle between the separating
+ray and side $i-1$. If $\pi-\alpha_i$ is the sum of the base angles of $Q_i$,
+then
+\[
+ \frac{\sin t_i}{\sin(\theta_i-t_i)}=\frac{w_i}{w_{i-1}},
+ \qquad \alpha_i=\pi-\theta_i+t_i-t_{i+1},\qquad \sum_i\alpha_i=2\pi .
+\]
+The angles vary continuously with the weights. The areas are continuous as
+well, because every tie between two weighted distance functions has area zero.
+
+Extend $F$ by zero to nonpositive openings. For $\epsilon>0$, take
+$w_i=(\omega_i+\epsilon)^{-1}$ on the closed probability simplex and put
+$G_i=F(\alpha_i)/\sum_j F(\alpha_j)-|Q_i|/|P|$. The sum of the openings is
+positive, so the denominator is positive. The continuous simplex map
+\[
+ \omega_i\longmapsto\frac{\omega_i+[G_i]_+}{1+\sum_j[G_j]_+}
+\]
+has a Brouwer fixed point. There $[G_i]_+=\omega_i\sum_j[G_j]_+$ and
+$\sum_j[G_j]_+\le1$.
+
+Pass to a convergent subsequence as $\epsilon\downarrow0$, and let $Z$ be the
+indices whose limiting coordinates vanish. If $Z$ is nonempty, the weighted
+distances for these indices tend to infinity at every interior point of $P$.
+Comparison with any index outside $Z$ shows that the total area of their
+cells tends to zero. The fixed-point identity then forces their total target
+area fraction to tend to zero. For $i\notin Z$ the weight $w_i$ is bounded
+above and $w_{i-1}$ bounded below. Thus $t_i$ stays away from $\theta_i$,
+$\alpha_i$ stays away from $\pi$, and the sum of the $F(\alpha_i)$ over the
+complement of $Z$ is bounded. On any maximal cyclic block $k,\ldots,l$ in
+$Z$ we have $t_k\to\theta_k$ and $t_{l+1}\to0$. Its openings sum in the
+limit to $\sum_{i=k}^l(\pi-\theta_i)+\theta_k\ge\pi$. At least one opening
+in the block is bounded below by a fixed positive number. The bounds on
+$F$ then preclude a vanishing target fraction. This proves that the limiting
+point lies in the interior. If one limiting $G_i$ were positive, the
+fixed-point identity would make every $G_i$ positive, contrary to $\sum_iG_i=0$.
+Thus all $G_i$ vanish, and Lemma~\ref{lem:cell} gives
+\begin{equation}\label{eq:cells}
+ \alpha_i>0,\quad |Q_i|=|P|\frac{F(\alpha_i)}{\sum_j F(\alpha_j)},\quad
+ |Q_i|\mu_D(Q_i)\ge F(\alpha_i).
+\end{equation}
+Restrict a Dirichlet trial function on $P$ to the cells, apply the mixed
+Rayleigh inequality on each, and sum. We obtain
+\begin{equation}\label{eq:sumF}
+                    J(P)\ge\sum_i F(\alpha_i),\qquad r_N=N F(2\pi/N).
+\end{equation}
+For the identity on the right, the regular ground state is even across each
+radial symmetry line. Conversely the isosceles mixed ground states match
+across these lines by reflection.
+
+\begin{proposition}[Supporting lines]\label{prop:support}
+The function $F$ satisfies $F''>0$ on $(0,2\pi/3]$. For $0<a\le2\pi/3$ and
+$0<\alpha<\pi$ with $\alpha\ne a$,
+\begin{equation}\label{eq:fulltangent}
+              F(\alpha)>F(a)+F'(a)(\alpha-a).
+\end{equation}
+\end{proposition}
+
+Appendix~\ref{app:acute} proves positivity of the curvature for
+$0<\alpha\le2\pi/5$ by a conformal change to a sector.
+Section~\ref{sec:square} proves $F''>1/10$ on
+$[2\arctan(1/\sqrt2),\pi/2]$. These intervals overlap because
+$\cos(2\pi/5)=(\sqrt5-1)/4<1/3$. We establish the remaining curvature bound
+and the global support of the tangent at $2\pi/3$ below.
+
+\subsection{The equilateral ground state and its spectral gap}\label{sec:equispec}
+Cut the isosceles cell along its symmetry axis, across which the ground state
+is even. Use the coordinates
+\[
+ t=\tan(\alpha/2),\quad z=t^{-2},\quad
+ D_0=\{0<y<x<1\},\quad \dd\mu=2\dd x\dd y .
+\]
+The physical point is $(x,ty)$. On functions with zero trace on $x=1$, let
+$A$ and $B$ be the quadratic forms $\int u_x^2\dd\mu$ and $\int u_y^2\dd\mu$.
+The other two sides carry natural conditions. Denote by $G(z)$ the lowest
+eigenvalue of $Q_z=A+zB$ in $L^2(\dd\mu)$. Then $F(\alpha)=tG(z)$. The forms
+have a common domain and depend analytically on $z$. By simplicity of the
+ground state, $G$ is analytic for $z>0$ \cite{kato}. Horizontal slices have
+length at most one, so $A\ge\ell\|\cdot\|_2^2$ with $\ell=\pi^2/4$.
+
+Put $c=1/3$, $H=4\pi^2/9$ and $\Lambda=4H$, so $\ell=9H/16$. At $z=c$ the
+physical half-cell reflects to an equilateral triangle of inradius one
+(Figure~\ref{fig:equilateral}). The distances $d_i$ to its three sides sum
+to three. The function
+$\sum_i\sin(2\pi d_i/3)=4\prod_i\sin(\pi d_i/3)$ is positive inside and
+vanishes on the boundary. Each summand satisfies the eigenvalue equation
+with eigenvalue $H$. Thus $G(c)=H$. In our coordinates the eigenfunction
+and its unit normalization are
+\[
+ E(x,y)=\sin\!\left(\tfrac{2\pi}{3}(1-x)\right)
+    +2\sin\!\left(\tfrac{2\pi}{3}+\tfrac{\pi x}{3}\right)\cos(\pi y),
+ \qquad e=E/\sqrt{3/2}.
+\]
+Integrating over $0<y<x<1$ gives
+\begin{equation}\label{eq:e-data}
+ \|E\|_2^2=\tfrac32,\quad \|E_y\|_2^2=\pi^2-\tfrac{243}{32},\quad
+ \beta=B(e,e)=\tfrac{2\pi^2}{3}-\tfrac{81}{16},\quad
+ J_y=\int y e_y\dd\mu=\frac{\sqrt6(8\pi-27\sqrt3)}{16\pi^2}.
+\end{equation}
+For the last two integrals use $E_y=-2\pi\sin(2\pi/3+\pi x/3)\sin(\pi y)$ and
+\[
+ \int_0^x\sin^2(\pi y)\dd y=\frac x2-\frac{\sin(2\pi x)}{4\pi},\qquad
+ \int_0^x y\sin(\pi y)\dd y=-\frac{x\cos(\pi x)}\pi+\frac{\sin(\pi x)}{\pi^2}.
+\]
+The bounds $3.141<\pi<3.142$ now give $4.38<H<4.39$, $1.50<\beta<1.52$
+and $|J_y|>0.33$.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[x=0.73cm,y=0.73cm,line join=round,every node/.style={font=\small}]
+ \fill[ink!19] (0,0)--(1,0)--(1,1.73205)--cycle;
+ \draw[thin,black!55] (0,0)--(-2,0) (0,0)--(1,1.73205) (0,0)--(1,-1.73205);
+ \draw[densely dashed,ink] (0,0)--(1,0) (0,0)--(-0.5,0.866025) (0,0)--(-0.5,-0.866025);
+ \draw[thick] (-2,0)--(1,1.73205)--(1,-1.73205)--cycle;
+ \draw[very thick,ink] (1,0)--(1,1.73205);
+ \fill (0,0) circle (1.4pt);
+\end{tikzpicture}
+\caption{Six copies of the shaded half-cell tile the equilateral triangle.
+The heavy side carries the Dirichlet condition. The two sides through the
+center carry Neumann conditions.}\label{fig:equilateral}
+\end{figure}
+
+On the $L^2$-orthogonal complement $e^\perp$ we claim that
+$Q_c\ge\Lambda\|\cdot\|_2^2$. Reflect a mixed eigenfunction evenly in the
+two medians to fill the equilateral triangle, then oddly across its three
+sides to tile the plane. The reflections preserve the weak equation, traces
+match, and isolated vertices are removable for the finite-energy extension.
+The extension is invariant under rotations by $120^\circ$ about the center
+and about each vertex. The first invariance comes from the two median
+symmetries, the second from two side reflections. Composing a vertex
+rotation with the inverse center rotation gives translations by differences
+of vertices. For vertices $(-2,0),(1,\sqrt3),(1,-\sqrt3)$ the reciprocal
+lattice is generated by $(2\pi/3)n_1,(2\pi/3)n_2$, where
+\[
+ n_1=(1,0),\quad n_2=(-1/2,\sqrt3/2),\quad n_3=-n_1-n_2 .
+\]
+The squared frequencies divided by $H$ are $h^2-hk+k^2$, $h,k\in\mathbb Z$.
+The positive values below four are one and three. The value three corresponds
+to $(2\pi/3)(n_i-n_j)$, a wave vector parallel to the remaining side.
+Reflection in that side fixes the exponential mode, so odd symmetry forces
+its coefficient to vanish. The constant mode also vanishes. The value one
+is the simple first eigenvalue, which proves the claimed gap.
+
+\subsection{Positive curvature from the square to the equilateral triangle}
+Let $c\le z\le1$, write $u$ for the unit positive ground state of $Q_z$, and
+set $\delta=z-c$, $R=(1+z)z^2$, $K=Q_z(u',u')-G\|u'\|_2^2$. Here primes on
+$u,G$ denote $z$-derivatives. Differentiating the weak eigenvalue equation
+gives $G'=B(u,u)$ and $G''=-2K$. The infimum of the affine Rayleigh
+quotients is concave. Using the square ground state
+$2\cos(\pi x/2)\cos(\pi y/2)$ at $z=1$ gives
+\[
+    0\le G'\le\beta,\qquad H\le G\le G(1)=9H/8.
+\]
+With $k=(1+t^2)/2$, differentiating $tG(t^{-2})$ twice with respect to
+$\alpha$ yields
+\begin{equation}\label{eq:angcurv}
+ \frac{F''(\alpha)}{kt}=G+(z^2-z)G'-4RK .
+\end{equation}
+
+Equip $e^\perp$ with the inner product $Q_c-G(\cdot,\cdot)_2$. In this
+space let $P,M$ represent the form $B$ and the mass inner product, and let
+$f$ represent the functional $B(e,\cdot)$. The gap and the horizontal
+Poincar\'e bound give
+\[
+  0\le P\le3\frac{\Lambda-\ell}{\Lambda-G}I
+        \le\frac{165}{46}I<\kappa I,\quad
+  0\le M\le\frac I{\Lambda-G},\qquad \kappa=18/5 .
+\]
+Indeed $B=3(Q_c-A)$, and $(s-\ell)/(s-G)$ decreases for $s\ge\Lambda$.
+Cauchy--Schwarz for $B$ gives $f=P^{1/2}\xi$ for some $\|\xi\|^2\le\beta$.
+Write $C=(I+\delta P)^{-1}$. The projected equation has the solution
+$u=\gamma(e-y)$, where $y=\delta Cf$ and $0<\gamma\le1$.
+Differentiate $(Q_z-G)(y,v)=\delta B(e,v)$ on the fixed space $e^\perp$.
+This gives
+\[
+ y'=C^2f+\delta G'CMC f,\qquad K=\gamma^2(Q_z-G)(y',y').
+\]
+Here subtraction of $G$ denotes subtraction of $G$ times the mass form.
+The terms involving $\gamma'$ vanish by the eigenvalue equation. Taking the
+$Q_z-G$ norm, using $0<C\le I$, and applying the spectral theorem to $P$
+gives
+\begin{equation}\label{eq:rbound}
+ \sqrt{RK}\le\sqrt\beta
+ \left(\sqrt{M_3}+\frac{\delta\beta}{\Lambda-G}\sqrt{M_2}\right),\qquad
+ M_j=\max_{0\le s\le\kappa}\frac{R s}{(1+\delta s)^j}.
+\end{equation}
+
+We have $M_3\le8/15$ and $M_2\le4/5$ throughout the interval. Indeed, for
+$j=2,3$ the maximizing $s$ is $\kappa$ if $\delta\le1/[(j-1)\kappa]$.
+Then $z/(1+\kappa\delta)\le1/3$ and
+$(1+z)/(1+\kappa\delta)\le4/3$. These inequalities give
+$M_3\le4\kappa/27$ and $M_2\le2\kappa/9$. Beyond the respective transition
+the maximizing $s$ is $1/[(j-1)\delta]$, giving $4R/(27\delta)$ and
+$R/(4\delta)$, respectively. The function $R/\delta$ is convex for
+$\delta>0$, as one sees by expanding $(1+c+\delta)(c+\delta)^2/\delta$.
+Thus the two endpoints suffice. The transition value was just estimated,
+and at $z=1$ the values are $4/9$ and $3/4$.
+
+It follows that $\delta\beta/(\Lambda-G)<0.081$ and
+$4RK<4(1.52)(0.731+0.081\cdot.895)^2<3.93$. The other terms in
+\eqref{eq:angcurv} satisfy $G+(z^2-z)G'\ge H-\beta/4>4$.
+Hence $F''>0$ for $\pi/2\le\alpha\le2\pi/3$.
+
+\subsection{The overlapping interval at the square}\label{sec:square}
+Equations \eqref{eq:angcurv} and \eqref{eq:rbound} also apply with the
+square as reference, as in \cite[Appendix~S1]{wang}. Set $c=1$,
+$H_s=\pi^2/2$ and $\delta=z-1$ for $1\le z\le2$. The reference state
+$e_s=2\cos(\pi x/2)\cos(\pi y/2)$ has
+$\beta_s=B(e_s,e_s)=H_s/2-2<0.468$, by direct integration. Even reflection
+in the diagonal and the coordinate axes expresses the eigenvalues as
+multiples of sums of two squared odd frequencies. The first two distinct
+sums are two and ten. Hence $Q_1\ge5H_s\|\cdot\|_2^2$ on $e_s^\perp$.
+Concavity gives $0\le G'\le\beta_s$ and $H_s\le G\le H_s+\delta\beta_s$.
+Since $B=Q_1-A$, the bounds on the projected operators become
+\[
+ \frac{5H_s-\ell}{5H_s-G}\le\frac{(9/2)H_s}{4H_s-\beta_s}<1.16=\kappa_s,
+ \qquad \frac{\delta\beta_s}{5H_s-G}<0.025 .
+\]
+For $0\le x\le\kappa_s$, $z/(1+\delta x)\le1$ if $x\ge1$. If $x\le1$ this
+ratio increases with $z$ and is at most $2/(1+x)$. Use
+$R=(1+1/z)z^3=(1+z)z^2$ and maximize $16x/(1+x)^3$ and $4x/(1+x)^2$ on
+$[0,1]$. This gives $M_3\le\max(2\kappa_s,64/27)=64/27$ and
+$M_2\le3\kappa_s$. The parentheses in \eqref{eq:rbound} are bounded by
+$1.54+0.025(1.866)<1.587$. Since $kt\ge3/(4\sqrt2)>0.53$, we obtain
+\[
+ F''(\alpha)>0.53\,[4.9298-4(0.468)(1.587)^2]>1/10
+ \quad\bigl(2\arctan(1/\sqrt2)\le\alpha\le\pi/2\bigr).
+\]
+This interval overlaps the one in Appendix~\ref{app:acute}.
+
+\subsection{Global support to the right of the equilateral opening}
+Put $a_0=2\pi/3$. From $F=tG$ and \eqref{eq:e-data},
+\[
+             F(a_0)=\sqrt3 H,\qquad
+             F'(a_0)=2(H-2c\beta)=27/4 .
+\]
+We first establish, for $v\in e^\perp$, the coupling estimate
+\begin{equation}\label{eq:stream}
+              |B(e,v)|^2\le C_* Q_c(v),\qquad C_*<2.6 .
+\end{equation}
+The vector field $(0,e_y)$ pairs with $\nabla v$ by ordinary integration to
+give $B(e,v)$. Use the vector-field inner product
+$\int(X_1Y_1+3X_2Y_2)\dd\mu$. Put $\psi=y(x-y)$. Both $(e_x,ce_y)$ and
+$(\psi_y,-\psi_x)$ have zero ordinary pairing with $\nabla v$. For the
+first this follows from $v\perp e$, and for the second from integration by
+parts, $\psi=0$ on $y=0,y=x$, and $v=0$ on $x=1$. The two fields are
+orthogonal in the vector-field inner product as well. Their squared norms
+are $H,2/3$, and their inner products with $(0,e_y)$ are $\beta,-3J_y$.
+Subtract both orthogonal projections and use Cauchy--Schwarz against the
+dual gradient norm $Q_c(v)^{1/2}$. This gives
+\[
+ C_* =3\beta-\beta^2/H-27J_y^2/2
+ <3(1.52)-(1.50)^2/4.39-27(0.33)^2/2<2.6 .
+\]
+
+Write $r=t/\sqrt3$ and first take $1<r\le7/4$. Then $z=c/r^2$ and
+$d=c-z>0$. By the arctangent subtraction formula and $\arctan u\le u$ for
+$u\ge0$, the value of the tangent in \eqref{eq:fulltangent} at $a=a_0$,
+divided by $t$, is at most
+\[
+ T=H/r+\frac{27}{2}\frac{r-1}{r(1+3r)} .
+\]
+We show $G(z)>T$. On $e^\perp$, the identity
+$Q_z=r^{-2}Q_c+(1-r^{-2})A$ implies
+\[
+ (Q_z-T)(v,v)\ge D Q_c(v),\qquad
+ D=\frac{9+55/r^2}{64}-\frac{T}{4H}.
+\]
+Here $T\ge4H/7>\ell$ and $Q_c\ge4H\|\cdot\|_2^2$. On $e$ the form
+$Q_z-T$ equals $H-d\beta-T$, and its pairing with $v\perp e$ is
+$-dB(e,v)$. By \eqref{eq:stream}, completing the square yields the desired
+strict lower bound if $D>0$ and $(H-d\beta-T)D/d^2>C_*$.
+
+Substitution and factorization give
+\begin{align*}
+ \frac{(H-d\beta-T)D}{d^2}
+  &=\frac9{16}\frac{8H+27(3r-1)/(3r+1)}{(r+1)^2}\\
+  &\quad\cdot
+ \left[\frac{55+9r^2}{64}-\frac r4-\frac{27r(r-1)}{8H(1+3r)}\right].
+\end{align*}
+The first factor exceeds $3.96$. Its numerator has logarithmic derivative
+less than $2/(r+1)$, since $162(r+1)/(3r+1)^2\le2\cdot162/16<2(8H)$.
+Thus $r=7/4$ and $8H>35$ give the lower bound
+$9(35+27\cdot17/25)/121$. The bracket is $r^2D$. With $y=r-1$ and
+$r/(1+3r)\le7/25$, it is bounded below by
+\[
+  \frac34+\frac y{32}+\frac9{64}y^2-0.22y>\frac23,
+\]
+as follows by completing the square. In particular $D>0$ and the product
+exceeds $3.96(2/3)>2.6$. This proves strict support up to $r=7/4$.
+
+Finally take $t_*=7\sqrt3/4$, $z_*=t_*^{-2}$ and
+$T_*=4H/7+162/175$, the value of $T$ at the joining point. For $0<z\le z_*$
+concavity and the horizontal Poincar\'e bound give
+$G(z)\ge\ell+(T_*-\ell)z/z_*$, using the right limit at zero. Thus
+\[
+ F(2\arctan t)\ge \ell t+(T_*-\ell)t_*^2/t .
+\]
+At $t=t_*$ this bound already exceeds the tangent. Its $t$-derivative is
+increasing and starts at $2\ell-T_*>1.49$, while the $t$-derivative of the
+tangent is $(27/2)/(1+t^2)\le216/163<1.49$. The tangent therefore stays strictly below $F(\alpha)$ for every
+$a_0<\alpha<\pi$. For $a<a_0$ strict convexity up to
+$a_0$ gives both a smaller tangent value at $a_0$ and a smaller slope.
+This proves Proposition~\ref{prop:support}.
+
+\begin{proposition}\label{prop:convex}
+If $P$ is convex and $n(P)\le N$, then $J(P)\ge r_N$. Equality holds
+precisely for polygons similar to $R_N$.
+\end{proposition}
+\begin{proof}
+Take $a=2\pi/N$. The tangent at $a$ is strictly below $F(0)=0$ as well. Indeed, the difference is positive at $a/2$ and increases towards zero opening.
+If there are fewer than $N$ cells, append zeros to the list of openings until it has length $N$. Their sum is $Na$,
+so the linear terms in the supporting-line inequalities cancel. Equation
+\eqref{eq:sumF} gives $J(P)\ge NF(a)=r_N$. Equality requires all $N$
+openings to equal $a$. The ground state has positive mass in every cell, so
+equality also holds in every mixed-cell comparison. By
+Lemma~\ref{lem:cell} and \eqref{eq:cells}, the cells are isosceles triangles
+of equal area and equal apex angle. Their bases have equal length. At each
+polygon vertex the two adjacent base angles add to $\pi-a$. The polygon is
+therefore regular. The regular polygon attains equality by \eqref{eq:sumF}.
+\end{proof}
+
+\section{A bound in terms of the number of convex vertices}\label{sec:turns}
+
+\begin{proposition}\label{prop:turns}
+Let $m\ge3$ be an integer. If a simple polygon $P$ has at most $m$ convex
+vertices, then $J(P)>r_{m+2}$.
+\end{proposition}
+
+We use one integral weight for all $m$. The scalar estimates below hold for
+every real $m\ge3$.
+
+\subsection{The regular competitor and the torsion deficit}
+Normalize both polygons to area $\pi$. Write $t=1/(m+2)\le1/5$,
+$j=j_{0,1}$ for the first positive zero of $J_0$, and $z_0=4\zeta(3)$.
+The torsional rigidity is $T(P)=\int_P v$, where $v\in H_0^1(P)$ solves
+$-\Delta v=1$. Define $D=1-8T(P)/\pi$. The planar Kohler--Jobin inequality
+$\lambda_1(P)\sqrt{T(P)}\ge j^2\sqrt{\pi/8}$ gives
+$\lambda_1(P)/j^2\ge(1-D)^{-1/2}$ \cite{brasco}.
+
+The Schwarz--Christoffel map of the disk with derivative
+$(1-w^{m+2})^{-2t}$ has image a regular polygon of area $\pi Z(t)$, where
+\[
+ Z(t)=\frac{\Gamma(1+t)^2\Gamma(1-2t)}{\Gamma(1-t)^2\Gamma(1+2t)},\qquad
+ \log Z(t)=\sum_{k\ge3,\,k\, {\rm odd}}\frac{(2^{k+1}-4)\zeta(k)}k t^k .
+\]
+Indeed, integrating along a radius gives circumradius $t\mathrm B(t,1-2t)$,
+so $Z(t)=\sin(2\pi t)[t\mathrm B(t,1-2t)]^2/(2\pi t)$. The gamma reflection
+formula and the Taylor expansion of $\log\Gamma(1+z)$ give the two
+expressions above. The circle mean of the squared modulus of the derivative
+is at least one. Transporting the radial disk ground state to the polygon
+therefore gives $\lambda_1(R_{m+2})/j^2\le Z(t)$ after scaling to area $\pi$.
+
+Suppose, for a contradiction, that $\lambda_1(P)\le\lambda_1(R_{m+2})$. Then
+\begin{equation}\label{eq:dupper}
+  D\le1-Z(t)^{-2}\le d=\frac{h}{1+h/2},\qquad h=t^3(2z_0+33t^2).
+\end{equation}
+In fact, $2\log Z-2z_0t^3\le4(17/16)(2t)^5/[5(1-4t^2)]<33t^5$, and
+$1-e^{-h}\le h/(1+h/2)$ follows from $2\operatorname{arctanh}(h/2)\ge h$.
+We shall use
+\[
+ 4.8<z_0<4.81,\qquad \zeta(4)<1.083,\qquad \zeta(5)<17/16,\qquad
+ \zeta(6)>1+1/64 .
+\]
+For $\zeta(3)$ a lower bound is the first six terms plus
+$\int_7^\infty x^{-3}\dd x$. An upper bound is the first four terms plus
+$\int_{9/2}^\infty x^{-3}\dd x$. For $\zeta(4)$ take three terms and the
+midpoint integral starting at $7/2$. For $\zeta(5)$ take two terms and the
+tail integral starting at two.
+
+\subsection{Conformal normalization and the torsion identity}\label{sec:torsiontool}
+Choose $f:\D\to P$ centered at a point of maximum conformal radius.
+Translate the image and rotate the parameter so that $f(0)=0$ and
+$a=f'(0)>0$. To justify this choice, start with any Riemann map $f_0$.
+Its derivative belongs to the Bergman space by the area formula.
+Cauchy--Schwarz on the Taylor coefficients gives
+$(1-|z|^2)|p(z)|\le(\pi^{-1}\int_\D|p|^2)^{1/2}$ for every Bergman function
+$p$. Polynomial approximation implies that $(1-|z|^2)|f_0'(z)|$ tends to
+zero as $|z|\to1$. Move its maximizer to the origin by a disk automorphism.
+Stationarity at the origin gives $f''(0)=0$. Write
+\[
+ f(z)=\sum_{j\ge1}a_jz^j,\quad a_1=a,\ a_2=0,\quad
+ b=a^2,\ B=1-b,\quad f'/a=1+\sum_{k\ge2}g_k z^k.
+\]
+The area identity reads $\sum j|a_j|^2=1$. Introduce
+\[
+ \begin{gathered}
+ S_k=|g_k|^2/(k+1),\quad S=\sum S_k=B/b,\quad Q=\sum\frac{k-1}{k+1}S_k,\\
+ V=S-Q,\qquad Q^\sharp=\sum_{k\ge4}\frac{k-3}{(k+1)^2}|g_k|^2 .
+ \end{gathered}
+\]
+We shall use three consequences of Wang's torsion identity.
+
+\begin{lemma}\label{lem:torsion}
+With the preceding normalization,
+\begin{equation}\label{eq:coercive}
+ D\ge B^2/4,\quad D\ge2bB/3,\quad
+ D/b^2\ge2Q+\tfrac32V^2-2V\sqrt{Q-V/2},\qquad 0\le V\le2Q .
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+For $s\ge2$ and $1\le p,q<s$, put $A_{p,s}=a_p a_{s-p}$ and
+$K_{p,q,s}=\min(p,q,s-p,s-q)$. Then
+\begin{equation}\label{eq:sos}
+ D=\tfrac12\sum_{s\ge2}\sum_{p,q=1}^{s-1}K_{p,q,s}|A_{p,s}-A_{q,s}|^2 .
+\end{equation}
+To derive the identity, first assume $f$ extends analytically beyond the
+unit circle. If $\mathcal H$ denotes harmonic extension from the circle,
+the pullback of the torsion function is $(\mathcal H(|f|^2)-|f|^2)/4$.
+Energy orthogonality expresses $16T(P)$ as the energy of $|f|^2$ minus
+that of $\mathcal H(|f|^2)$. These energies are
+$\pi\sum_s s|\sum_p A_{p,s}|^2$ and
+$4\pi\sum_{l\ge1}l|\sum_{j\ge1}a_{j+l}\bar a_j|^2$, respectively.
+Collecting coefficients according to $s$ and $p-q$ gives $s/2-|p-q|$ as
+the matrix entry for $8T(P)/\pi$. Symmetrizing in $q,s-q$ gives $K_{p,q,s}$.
+For $r=\min(p,s-p)$ its row sum is
+$2\sum_{q<r}q+(s-2r+1)r=p(s-p)$. Subtraction of the resulting quadratic
+form from $(\sum j|a_j|^2)^2$ yields \eqref{eq:sos}. For a general map
+apply the calculation to $f(uz)$ for $0<u<1$, using the square of its
+normalized area in place of one. As $u\uparrow1$ the nonnegative summands
+increase, and the torsional rigidities converge by the variational principle
+and exhaustion by compactly supported tests.
+
+Let $M$ be the maximum of the torsion function, and write $A(t)=|\{v>t\}|$.
+The flux identity and coarea formula, followed by Cauchy--Schwarz and the
+planar isoperimetric inequality, give $-A'(t)\ge4\pi$ for almost every
+$t<M$. Integration yields $T(P)\le\pi M-2\pi M^2$, hence
+$D\ge(1-4M)^2$. Recenter the map at the torsion maximum and translate its
+image to put this point at zero. If the new coefficients are $\tilde a_j$,
+the harmonic extension formula at zero gives $4M=\sum|\tilde a_j|^2$.
+Since $\sum j|\tilde a_j|^2=1$ and $|\tilde a_1|^2\le b$, it follows that
+$4M\le(1+b)/2$. This proves $D\ge B^2/4$.
+
+Put $Y=\sum_{j\ge3}|a_j|^2=bV/2$. In the area square minus the kernel form,
+the endpoint terms $p=1,s-1$ contribute $2(s-3)b|a_{s-1}|^2$ for $s\ge4$,
+with sum $2b^2Q$. The remaining nonzero products have $3\le p\le s-3$.
+Bound the interior quadratic form by its row sums. Each such row loses
+six upon deletion of $q=1,2,s-2,s-1$, leaving at least $6Y^2$.
+On $s=k+2$ there are at most $k-3$ interior terms. Cauchy--Schwarz bounds
+the absolute endpoint--interior contribution by
+\[
+ 4a\Big(\sum_{k\ge4}(k-3)|a_{k+1}|^2\Big)^{1/2}Y
+ =4b\sqrt{Q^\sharp}\,Y .
+\]
+Thus $D/b^2\ge2Q+3V^2/2-2V\sqrt{Q^\sharp}$. Termwise comparison gives
+$Q^\sharp\le(3Q-S)/2=Q-V/2$ and $Q\ge S/3$. Moreover,
+$2V\sqrt{Q^\sharp}\le3V^2/2+2Q^\sharp/3\le3V^2/2+Q-S/3$.
+It follows that $D/b^2\ge2S/3$, which gives the second bound. Absolute
+convergence of the kernel forms follows from their row sums and
+$2|uv|\le|u|^2+|v|^2$.
+\end{proof}
+
+\subsection{A shifted moment inequality and its integral}
+Let $\xi_i\in\partial\D$ be the prevertex with interior angle $\omega_i$.
+Put $\nu_i=(\pi-\omega_i)/(2\pi)$. These weights sum to one, and the
+number $p$ of positive weights is the number of convex vertices. Thus
+$p\le m$. The Schwarz--Christoffel formula gives
+\[
+ h=f'/a=\prod_i(1-\bar\xi_i z)^{-2\nu_i},\qquad
+ H(z)=\sum_i\frac{\nu_i}{1-\bar\xi_i z}-1,\qquad 2hH=zh'.
+\]
+For $c\ge0$ the rational function $B_c=(H-c)/(1+c+H)$ has modulus one on
+the circle, since $\Re H=-1/2$ away from the prevertices. Its degree is
+the number $n$ of effective vertices. Its preimages of one are exactly the
+$n$ prevertices, all simple, with $\xi_iB_c'(\xi_i)=(1+2c)/\nu_i$.
+Counting signed crossings of one gives winding number $2p-n$.
+Reflection in the unit circle exchanges zeros and poles, so their total
+number in the disk is $n$. The argument principle therefore gives exactly
+$p$ zeros in the disk, counted with multiplicities. Write $B_c$ as a
+unimodular constant times a quotient of finite Blaschke products.
+On a circle of radius $r$ every numerator factor has mean log modulus at
+least $\log r$, and each denominator factor has modulus at most one.
+Jensen's formula for $1+c+H$ gives mean log modulus at least $\log(1+c)$.
+Also $h$ has no zeros and $h(0)=1$, so its mean log modulus is zero.
+The arithmetic--geometric mean inequality now yields
+\[
+ \int_{\partial\D}|h(r\zeta)(H(r\zeta)-c)|^2\frac{|\dd\zeta|}{2\pi}
+       \ge (1+c)^2 r^{2p}.
+\]
+By Parseval and $2hH=zh'$, the left side is
+$c^2+\sum_{k\ge2}(k/2-c)^2|g_k|^2r^{2k}$. Put $r=e^{-s/2}$,
+$M(s)=(e^{ms}-1)^{-1}$, and $c=M(s)$. Since $r^{2p}\ge e^{-ms}$ and
+$(1+M)^2e^{-ms}-M^2=M$, we obtain
+\begin{equation}\label{eq:jensen}
+ 4 M(s)\le \sum_{k\ge2}|g_k|^2e^{-ks}\big(k-2M(s)\big)^2 .
+\end{equation}
+Use the positive weight and its Laplace transform
+\[
+ w(s)=\tfrac12s^2(1+s)e^{-2s},\qquad
+ L(x)=\int_0^\infty w(s)e^{-xs}\dd s=(x+2)^{-3}+3(x+2)^{-4}.
+\]
+For each $k\ge2$ we claim
+\begin{equation}\label{eq:nonpositive}
+ \int_0^\infty w(s)e^{-ks}(M^2-kM)\dd s
+       =\sum_{j\ge1}(j-1-k)L(k+mj)\le0.
+\end{equation}
+To see the sign, set $q=1+(k+2)/m$ and put probability weights proportional
+to $(q+i)^{-3}$ on $i=0,1,\ldots$. A midpoint upper bound for
+$\sum(q+i)^{-2}$ and a trapezoidal lower bound for $\sum(q+i)^{-3}$ give
+\[
+ \mathbb E i\le
+ \frac{1/(q-1/2)}{1/(2q^2)+1/(2q^3)}-q
+ =q-\frac{q(q-1)}{(q-1/2)(q+1)} .
+\]
+If $q\le2$, the right side is at most two. If $q\ge2$, the subtracted
+fraction is at least $1/3$, and $q-1/3\le(k+4)/3\le k$. Hence
+$\mathbb E i\le k$. Reweighting by the decreasing function $(q+i)^{-1}$
+only decreases the mean. Taking $i=j-1$ proves the claim for both powers
+in $L$. For fixed $k$ the series are absolutely convergent.
+
+Finally $k^2(k+1)L(k)\le(k-1)/(k+1)$. On clearing positive denominators
+the difference has numerator $5(k-2)^3+33(k-2)^2+56(k-2)+4$. Integrate
+\eqref{eq:jensen} against $w$. Tonelli's theorem applies to its square
+terms, and \eqref{eq:nonpositive} bounds their cross contributions mode by
+mode. We conclude that
+\begin{equation}\label{eq:rawlower}
+                     Q\ge4\sum_{j\ge1} L(mj).
+\end{equation}
+
+\subsection{A uniform separation of the two bounds}
+Put $x_j=2t(1-1/j)$, so $mj+2=(j/t)(1-x_j)$. On the right of
+\eqref{eq:rawlower} expand the inverse cube through $x_j^3$ and the inverse
+fourth power through $x_j^2$. The omitted terms are nonnegative. This gives
+\[
+ \frac Q{t^3}\ge z_0+(6z_0-12\zeta(4))t+
+ 96(\zeta(3)-\zeta(4))t^2+
+ 4(80\zeta(3)-120\zeta(4)+40\zeta(6))t^3 .
+\]
+Consequently $Q\ge a=t^3 A(t)$ with
+$A(t)=z_0+15.8t+11.2t^2+26t^3<8.63$.
+
+Equation \eqref{eq:dupper} implies $d<0.084$ and $d/t^2<2.1$. Indeed
+$h/t^3<10.94$, and $10.94t/(1+10.94t^3/2)$ increases up to $t=1/5$,
+where it is less than $2.1$. By \eqref{eq:coercive}, $B<0.58$.
+For $0.15\le B\le.58$ one has $2B(1-B)/3\ge.085$, so $b>0.85$. Hence
+\[
+ b^{-2}-1=(1+b)B/b^2\le\frac{3(1+b)}{2b^3}D<4.52d .
+\]
+Since $h-d=hd/2\ge d^2/2$, this gives
+\begin{equation}\label{eq:upfinal}
+                 D/b^2\le d+4.52d^2\le h+4.02(2.1)^2t^4<h+17.73t^4 .
+\end{equation}
+
+For a lower bound, first observe that \eqref{eq:rawlower} gives $Q>0$.
+Concavity of the square
+root yields $\sqrt{Q-V/2}\le\sqrt Q-V/(4\sqrt Q)$. Completing the square
+in $V$ in \eqref{eq:coercive} gives
+\[
+ \frac{D}{b^2}\ge 2Q-\frac{2Q^{3/2}}{1+3\sqrt Q}
+        \ge 2a-\frac{2a^{3/2}}{1+3\sqrt a}.
+\]
+The last inequality uses that $2Q(1+2\sqrt Q)/(1+3\sqrt Q)$ increases in $Q$.
+Now
+\[
+ (2a-h)/t^4=31.6-10.6t+52t^2\ge31.6-10.6^2/208>31
+\]
+and $\sup_{y>0} y/(1+3\sqrt A\,y^3)=2/[3(6\sqrt A)^{1/3}]$. Thus
+\[
+ \frac{2a^{3/2}}{(1+3\sqrt a)t^4}
+   =\frac{2A^{3/2}\sqrt t}{1+3\sqrt A(\sqrt t)^3}
+   \le\frac{4 A^{4/3}}{3\sqrt[3]6}<13.1 .
+\]
+It follows that $D/b^2>h+17.9t^4$, contradicting \eqref{eq:upfinal} and
+proving Proposition~\ref{prop:turns}.
+
+\section{Compactness with one reflex vertex}\label{sec:compact}
+
+\begin{lemma}\label{lem:compact}
+Let $P_i$ be simple polygons of area $A>0$, each with at most $N$ effective
+sides and exactly one reflex vertex. If $\liminf_i\lambda_1(P_i)<\infty$,
+there is a simple polygon $Q$ such that
+\begin{equation}\label{eq:compact}
+  0<|Q|\le A,\qquad n(Q)\le N,\qquad
+  \lambda_1(Q)\le\liminf_i\lambda_1(P_i).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Take a subsequence realizing the lower limit and having a fixed side count
+$p\le N$. Translate its reflex vertex $v_i$ to the origin. A ray from $v_i$
+splits the interior angle $\omega_i>\pi$ into two angles smaller than $\pi$
+if its direction, measured from one side, lies in $(\omega_i-\pi,\pi)$.
+Choose such a ray avoiding the other vertices and all directions parallel
+to edges. Its first return to the boundary is a point $z_i$ in the relative
+interior of a nonincident edge $E_i$. The chord $[v_i,z_i]$ cuts the polygon
+into two pieces with all interior angles less than $\pi$. Their closures
+$K_{1i},K_{2i}$ are convex and lie on opposite sides of the chord line.
+Each of the two boundary paths from $v_i$ to $z_i$ contains another original
+vertex, so each piece has at most $p$ vertices. Both pieces retain a
+subsegment of $E_i$ with the same induced orientation. The line of $E_i$
+therefore supports both pieces on the same side (Figure~\ref{fig:cut}).
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[x=0.73cm,y=0.67cm,baseline=(current bounding box.center),
+                    every node/.style={font=\small},line join=round]
+ \fill[ink!15] (-2,0)--(0,0)--(0,1.12)--(-2,1.93)--cycle;
+ \fill[ink!5] (0,0)--(2,0)--(2,1.93)--(0,1.12)--cycle;
+ \draw[thick] (-2,0)--(2,0)--(2,1.93)--(0,1.12)--(-2,1.93)--cycle;
+ \draw[ink,densely dashed,thick] (0,0)--(0,1.12);
+ \fill (0,0) circle (1.45pt) (0,1.12) circle (1.45pt);
+ \node[above] at (0,1.12) {$v_i$};
+ \node[below] at (0,0) {$z_i$}; \node[below] at (-1,0) {$E_i$};
+ \node at (-1.04,0.73) {$K_{1i}$}; \node at (1.04,0.73) {$K_{2i}$};
+ \begin{scope}[shift={(6.8,0.91)}]
+  \fill[ink!15] (-2,0)--(-1.65,0.92)--(0.15,1.02)--(0.74,0)--cycle;
+  \fill[ink!5] (-0.62,0)--(0.16,-1.06)--(1.64,-0.9)--(2,0)--cycle;
+  \draw[thick] (-2,0)--(-1.65,0.92)--(0.15,1.02)--(0.74,0)--(2,0)--(1.64,-0.9)--(0.16,-1.06)--(-0.62,0)--cycle;
+  \draw[ink,densely dashed,thick] (-0.62,0)--(0.74,0);
+  \node at (-0.55,0.48) {$K_1$}; \node at (0.66,-0.5) {$K_2$};
+  \node[right] at (2.05,0) {$L$};
+ \end{scope}
+\end{tikzpicture}
+\caption{On the left the chord from the reflex vertex ends in an original
+edge. On the right two limiting pieces meet along a segment of positive
+length. The relative interior of the dashed overlap lies in the union's
+interior.}\label{fig:cut}
+\end{figure}
+
+Extend the $L^2$-normalized ground states by zero to $u_i\in H^1(\R^2)$.
+Their Dirichlet energies are bounded. A convex piece of area at most $A$
+and diameter $h$ lies in a strip of width at most $2A/h$. Indeed, form two
+triangles on a diameter by taking a farthest point on each side of its line.
+The sum of their areas is half the diameter times the width in the
+perpendicular direction. For any strip $L_w$ of width $w$,
+\[
+ \int_{L_w}|u|^2\le 2w\|u\|_{2}\|\nabla u\|_{2}\qquad(u\in H^1(\R^2)).
+\]
+Apply the one-dimensional bound $\sup|g|^2\le2\|g\|_2\|g'\|_2$ normally
+to the strip, then integrate tangentially. Thus any piece of diverging
+diameter carries vanishing $L^2$ mass. Pass to a further subsequence along
+which both diameters have limits in $[0,\infty]$. At least one is bounded.
+
+If the other diameter diverges, the bounded piece lies in a fixed ball since
+it contains the origin. Its vertices have a subsequence converging to a
+convex hull $K_1$ with at most $N$ vertices. Take a weak $H^1(\R^2)$ limit
+$u$ and strong $L^2$ limits on bounded balls. Vanishing mass on the
+unbounded piece gives $\|u\|_2=1$ and $\operatorname{supp}u\subset K_1$.
+In particular $K_1$ has positive area. The zero-extension trace criterion
+gives $u\in H_0^1(K_1^\circ)$. Weak lower semicontinuity of the energy and
+continuity of convex area give \eqref{eq:compact} with $Q=K_1^\circ$.
+
+Suppose now that both diameters are bounded. Keep the index of $E_i$ fixed
+and take limits of all original vertices, $z_i$, and oriented unit normals
+to the chord and to $E_i$. Let $\mathcal V$ be the set of limits of the $p$
+original vertices and put $z=\lim_i z_i$. The Hausdorff limits $K_1,K_2$
+of the two pieces are convex hulls of at most $p$ points each, all in
+$\mathcal V\cup\{z\}$. They lie on opposite sides of the limiting chord
+line $L$ and on the same side of the limiting support line of $E_i$.
+Continuity of area and disjointness of the interiors give
+$|K_1|+|K_2|=A$.
+
+Put $U=\operatorname{int}(K_1\cup K_2)$. If one piece degenerates to a
+point or a segment, $U$ is the interior of the other. If both have positive
+area and meet only at a point, $U$ is the disjoint union of their interiors.
+In either case each component has at most $N$ sides. In the remaining case,
+the intervals $I_a=K_a\cap L$, $a=1,2$, overlap in positive length.
+Removing the relative interior of $I_a$ from each boundary leaves two
+outer polygonal arcs, one on each side of $L$. Join the left endpoints and
+the right endpoints along $L$, omitting any zero joins. These two joins are
+disjoint, and the outer arcs leave $L$ except at their endpoints. The
+result is a polygonal Jordan curve enclosing exactly $U$.
+
+Every turn of its boundary is a vertex of a limiting piece. If
+$z\notin\mathcal V$, the endpoints of $E_i$ converge to opposite sides of
+$z$ along its limiting line. The two pieces retain the two subsegments of
+this limiting edge. The support line and $L$ are distinct, since coincidence
+would force one of the two pieces to degenerate. Join a point of the common
+overlap near $z$ to the limiting endpoints of the edge. Each half of the
+resulting triangle belongs to the corresponding convex piece. Hence $z$
+lies in the relative interior of a straight side of $U$. All effective
+vertices belong to $\mathcal V$, so $n(U)\le N$.
+
+Finally, Rellich compactness on a fixed ball gives a limit $u$ of unit
+$L^2$ norm and energy at most $\liminf_i\lambda_1(P_i)$. It is supported
+on $K_1\cup K_2$, which differs from $U$ by a set of area zero.
+When $U$ is a single polygon its Lipschitz trace gives $u|_U\in H_0^1(U)$.
+When the two open components touch at just one boundary point, their
+traces vanish off the contact point and hence almost everywhere on each
+boundary. In this case the restriction to each component also has zero
+trace. Choose a component $Q$ of lowest first eigenvalue. Then
+\[
+ \lambda_1(Q)=\lambda_1(U)\le\int_{\R^2}|\nabla u|^2\le\liminf_i\lambda_1(P_i),
+ \qquad 0<|Q|\le A.
+\]
+The side count established above proves the lemma.
+\end{proof}
+
+\section{Stationarity and the boundary pressure}\label{sec:pressure}
+Let $u>0$ be a first eigenfunction on a simple polygon $P$, and write
+$\lambda=\lambda_1(P)$, $n=n(P)$. Define the root-mean-square height and the
+pressure on the open sides by
+\[
+     t_*^2=|P|^{-1}\int_Pu^2,\qquad q=(\partial_\nu u)^2
+\]
+Following \cite{cheng}, we show that if a nonconvex polygon is stationary
+under variations of its supporting lines, then $\{u>t\}$ has at least two
+components for almost every $t$ in some neighborhood of $t_*$.
+
+\subsection{Corner expansions and two moments on each edge}
+Near a vertex of angle $\omega$ use polar coordinates with $0<\theta<\omega$.
+Set $\beta=\pi/\omega>1/2$ and $\gamma=\min(\beta,2)$. Then
+\[
+ u=c r^\beta\sin(\beta\theta)+R,\quad c>0,\qquad
+ |\nabla^j R|=O(r^{\beta+\gamma-j})\quad(j=0,1).
+\]
+Indeed, take $r_1$ small enough that $\sqrt\lambda r_1<j_{\beta,1}$.
+Expanding in angular sines and solving the finite-energy radial Bessel
+equations gives
+$u=\sum_{m\ge1}c_mJ_{m\beta}(\sqrt\lambda r)\sin(m\beta\theta)$.
+The first sine coefficient on $r=r_1$ is positive. Parseval's identity
+and $J_\nu(s)=(s/2)^\nu[1+O(s^2/(\nu+1))]/\Gamma(\nu+1)$ give uniform
+convergence of the higher modes and their first derivatives on $r\le r_1/2$.
+They are $O(r^{2\beta})$ and $O(r^{2\beta-1})$, respectively. On both sides
+of the corner,
+$q=c^2\beta^2r^{2\beta-2}(1+O(r^\gamma))$. This is integrable. It tends to
+zero at convex vertices and to infinity at reflex vertices.
+
+Translate and rotate the supporting line of one effective side, keeping the
+others fixed. These variations realize every affine normal velocity
+$h(s)=d_0+d_1s$ on that side, where $0<s<L$ is arclength. Consecutive lines
+meet transversely, so small variations preserve simplicity and side count.
+Pull back the Rayleigh quotient by piecewise affine interpolation on a
+fixed triangulation. Simplicity of the first eigenvalue gives differentiability
+by analytic perturbation \cite{kato}. The stress tensor in the volume
+derivative is $\mathcal T=(|\nabla u|^2-\lambda u^2)I-2\nabla u\otimes\nabla u$.
+It is divergence free and has traction $\mathcal T\nu=-q\nu$ on each open
+side. Excision of radius-$\epsilon$ sectors at the vertices gives circular
+flux $O(\epsilon^{2\beta-1})\to0$. Adding the area derivative yields
+\[
+ J'(0)=-\frac{|P|}{\int_P u^2}\int_0^L(q-\lambda t_*^2)h(s)\dd s .
+\]
+Rescaling to restore area leaves $J$ unchanged. Thus at a global minimizer
+both affine variations on each side are stationary and
+\begin{equation}\label{eq:momentsE}
+       \int_0^L(q-\lambda t_*^2)\dd s=\int_0^L s(q-\lambda t_*^2)\dd s=0 .
+\end{equation}
+Odd reflection gives analyticity of $q-\lambda t_*^2$ on each open side.
+The endpoint limits imply it has finitely many zeros. If it had at most one
+sign change, a constant or a linear function vanishing at that change would
+contradict \eqref{eq:momentsE}. A side joining two vertices of the same type
+therefore has at least two sign changes. A side joining different types has
+at least three, by parity. For a nonconvex polygon the number $k$ of sides
+of the latter kind is even and at least two. Choose points with opposite
+strict signs on the two sides of each change. These crossings persist for
+all nearby heights. Writing $\mathcal V_P$ for the polygon vertices, we obtain at regular heights near $t_*$
+\begin{equation}\label{eq:countlow}
+ Z(t)=\#\{x\in\partial P\setminus\mathcal V_P:q(x)=\lambda t^2\}\ge 2n+k .
+\end{equation}
+
+\subsection{Flux of the gradient direction and the number of components}
+Let $Q=|\nabla u|^2$, $\Psi=(Q+\lambda u^2)/2$, and $\Sigma=\{\nabla u=0\}$.
+Off $\Sigma$ define $X=\nabla\Psi/Q$. If $\vartheta$ is a local argument
+of $\nabla u$ and $R$ is counterclockwise rotation through $\pi/2$, the
+eigenfunction equation gives
+\begin{equation}\label{eq:flux-identity}
+ \nabla\Psi=-\operatorname{cof}(D^2u)\nabla u,\qquad
+ X=R\nabla\vartheta,\qquad \operatorname{div}X=0 .
+\end{equation}
+Odd reflection of $u$ makes $\Psi$ even across open sides. The Hopf lemma
+gives $Q>0$ there, so the normal flux of $X$ vanishes. The corner expansion
+also gives $|\nabla u|=c\beta r^{\beta-1}(1+O(r^\gamma))$, uniformly in
+the angular variable. Thus $\Sigma$ is contained in a compact subset of $P$.
+
+In fact $\Sigma$ is finite. At any accumulation point,
+$\operatorname{tr}D^2u=-\lambda u<0$, so the zero set of at least one first
+partial derivative is a regular analytic arc. The other partial derivative
+has accumulating zeros on the arc and vanishes along it. The same local
+description holds at each limit point of such an arc. Any one-dimensional
+critical component is therefore a compact regular curve without endpoints
+or branches. Its Jordan interior lies in $P$, where the integral of
+$\Delta u=-\lambda u$ is strictly negative. On the curve the boundary flux
+of $\nabla u$ is zero, a contradiction.
+
+By \eqref{eq:flux-identity}, the outward flux of $X$ on a small circle
+around a critical point is $-2\pi$ times its gradient index. At a vertex,
+in axes aligned with the sides as in the corner expansion, the leading
+gradient direction is
+$(\sin((\beta-1)\theta),\cos((\beta-1)\theta))$. Its total change of
+argument along the circular arc tends to $\omega-\pi$. This is the limiting
+flux for the normal pointing into the excised sector. Excising all critical
+points and corners and applying the divergence theorem gives
+$\sum_{P\cap\Sigma}\operatorname{ind}(\nabla u)=1$.
+
+Let $C(t)$ be the number of components of $\{u>t\}$. Choose $0<t<\max u$
+so that $\lambda t^2/2$ is a regular value of $\Psi$ and $\lambda t^2$ a
+regular value of $q$ on each edge. Almost every $t$ qualifies by Sard's
+theorem. It is also a regular value of $u$, since $\nabla u=0$ implies
+$\nabla\Psi=0$. Each superlevel component is a smooth Jordan domain.
+Indeed, the interior of an inner level curve lies in $P$, and strict
+superharmonicity forces $u>t$ in that interior. This contradicts the
+change of sign across a regular inner level curve. On the boundary of each
+component the gradient points inward, so its total index is one.
+
+Write $C_+,C_-$ for the numbers of components of
+$\{2\Psi>\lambda t^2\}$ and $\{2\Psi<\lambda t^2\}$. In a high-pressure
+component $H$ the sum of the critical point indices equals the number $C_H$
+of superlevel components it contains. Indeed, the closure of each superlevel
+component lies in the high-pressure set, and $2\Psi=\lambda u^2$ at critical
+points. The pressure level avoids all vertices and meets the sides
+orthogonally. It is a compact regular one-manifold, consisting of
+$b=Z(t)/2$ arcs with boundary endpoints and possibly some closed curves.
+The $b$ disjoint arcs cut a topological disk into $b+1$ regions. Thus
+$b+1\le C_++C_-$.
+
+The flux identity on a high-pressure component reads
+\[
+ 0<\int_{\partial H\cap P}\frac{|\nabla\Psi|}{Q}\dd s
+  =\sum_{v\in\overline H\cap\mathcal V_P}(\omega_v-\pi)+2\pi C_H ,
+\]
+where the sum is over incident polygon vertices, all reflex. Each such
+component must contain a superlevel component or meet a reflex vertex.
+If $q_0$ is the total number of reflex vertices, then
+$C_+\le q_0+C(t)$. For a low-pressure component $L$, let $a_L$ be its
+number of incident convex vertices and $i_L$ its critical point index sum.
+Its positive level-boundary flux is
+$\sum_{v\in\bar L\cap\mathcal V_P}(\pi-\omega_v)-2\pi i_L>0$. If $a_L=0$ this gives
+$i_L\le-1$. If $a_L>0$ it gives $2i_L<a_L$. In both cases
+$a_L-i_L\ge1$. Summing and using $\sum_L i_L=1-C(t)$ and
+$\sum_La_L=n-q_0$, we obtain $C_-\le n-q_0+C(t)-1$. Combining the bounds
+for the two signs gives
+\begin{equation}\label{eq:countup}
+                        Z(t)\le 2n+4C(t)-4 .
+\end{equation}
+With \eqref{eq:countlow} this implies $C(t)\ge1+k/4>1$ for almost every
+$t$ near $t_*$ on a nonconvex stationary polygon.
+
+\subsection{The pentagon as a common competitor}
+Suppose three successive vertices $A,B,C$ form an ear, with the open
+diagonal $AC$ in $P$. If $|AC|\le\max(|AB|,|BC|)$, stationarity is
+impossible. Relabel so that $|BC|\ge|AC|$. Take coordinates
+$A=(0,0)$, $B=(L,0)$, $C=(p,h)$ with $h>0$, so $p\le L/2$. At height $y$
+the endpoint abscissas of the ear sum to $L+(2p-L)y/h\le L$. The right
+cap $x>L/2$ of the ear therefore reflects into $P$ about $x=L/2$.
+The reflection of the open sloping boundary of the cap is interior, using
+$(A,C)\subset P$ also when $p=L/2$. The function
+$u(L-x,y)-u(x,y)$ has nonnegative boundary values on the cap. Since the
+cap's first eigenvalue exceeds $\lambda$, testing with the negative part
+and then applying the strong maximum principle shows that the difference
+is positive in the cap. The Hopf lemma on $AB$ yields
+$q(L-x)>q(x)$ for $L/2<x<L$. This contradicts
+$\int_0^L(x-L/2)q(x)\dd x=0$, a consequence of \eqref{eq:momentsE}.
+
+A nonconvex quadrilateral replaces a side $AB$ of its triangular convex
+hull by $ARB$, with $R$ in the interior of the hull. Let $C$ be the
+third hull vertex and order $A,B$ so that $|CA|\ge|CB|$. Then $CAR$ is
+an ear and $|CR|<|CA|$. Consequently a nonconvex stationary polygon must
+have at least five effective sides. If it is a global minimizer with side
+budget $N$, then $N\ge5$, and the admissible regular pentagon gives
+$J(P)\le r_5$.
+
+\section{The pentagonal threshold and projection onto the disk ground state}
+\label{sec:disk}
+Throughout this section and the next we normalize $|P|=\pi$ and use the disk
+estimates of \cite{cheng}. Let $\lambda=\lambda_1(P)$, $j=j_{0,1}$ and
+$\mu=j^2$. Write $\davg{v}=\pi^{-1}\int_\D v\dd A$ and
+$\norm{v}^2=\davg{|v|^2}$. The positive disk ground state is
+$\phi(z)=\Phi(|z|^2)=J_0(j|z|)$. The Bessel norm identity gives
+$\Cphi=\norm{\phi}^2=J_1(j)^2$. Write $G$ for the inverse of the Dirichlet
+Laplacian on $\D$. Our conventions for its kernel and the dual energy norm are
+\[
+ G_z(w)=\frac{1}{2\pi}\log\left|\frac{1-\bar zw}{z-w}\right|,\qquad
+ GF(z)=\int_\D G_z(w)F(w)\dd A(w),\qquad \|F\|_{-1}^2=\davg{\bar F GF}.
+\]
+The ground state on $P$ is bounded. Indeed, with $R=\operatorname{diam}P$,
+majorize $G_P(x,y)$ by the Green kernel of $B(x,R)$. Cauchy--Schwarz gives
+$u(x)\le\lambda R\|u\|_{L^2(P)}/\sqrt{8\pi}$.
+
+\subsection{The disk profile and the regular pentagon}
+We use the enclosures
+\begin{equation}\label{eq:disk-constants}
+  5.783<\mu<5.784,\qquad
+  0.2694<\Cphi<0.2697,\qquad
+  j_{1,1}^2>14.6.
+\end{equation}
+Here $j_{\nu,1}$ denotes the first positive zero of $J_\nu$. For a rational
+verification, put $\Jcal_n(t)=n!(2/\sqrt t)^n J_n(\sqrt t)$, continued to
+$t=0$. Its degree-$d$ Taylor polynomial is
+\[
+  B_{n,d}(t)=\sum_{i=0}^d\frac{(-t/4)^i n!}{i!(n+i)!}.
+\]
+One has $4(n+1)\Jcal_n'=-\Jcal_{n+1}$. At each evaluation below the
+successive absolute ratios in the omitted tail, $t/[4(i+1)(n+i+1)]$, are
+less than one. Odd and even truncations give lower and upper bounds.
+With $z=t/4$, the cubic $B_{2,3}=1-z/3+z^2/24-z^3/360$ has $z$-derivative
+$-[(z-5)^2+15]/120$, and $B_{2,3}(14.6)>0$. Thus $\Jcal_1$ decreases
+strictly on $[0,14.6]$. Since $B_{1,5}(14.6)>0$ we obtain $j_{1,1}^2>14.6$
+and strict decrease of $\Jcal_0$ there. Now
+$B_{0,5}(5.783)>0>B_{0,6}(5.784)$ bounds $\mu$. Finally
+$B_{1,5}(5.784)>0.43168$ and $B_{1,6}(5.783)<0.4318$ give the norm
+bounds by $\Cphi=(\mu/4)\Jcal_1(\mu)^2$.
+
+Set $s=r^2$ and $\rho=1-s$. The radial equation $(s\Phi')'=-\mu\Phi/4$
+integrates to
+\begin{equation}\label{eq:disk-average}
+  -\Phi'(s)=\frac{\mu}{4}\int_0^1\Phi(st)\dd t.
+\end{equation}
+Repeated differentiation gives $(-1)^i\Phi^{(i)}\ge0$. We claim that
+\begin{equation}\label{eq:phi-chord-bounds}
+  \rho\left(1-\frac{9s}{20}\right)\le\Phi(s)\le p_3(s):=\rho\left(1-\frac{7s}{16}+\frac{s^2}{16}\right).
+\end{equation}
+The Hermite polynomial at nodes $0,0,1$ is $\rho[1-(\mu/4-1)s]$ and its
+remainder is nonnegative. Since $\mu/4-1<9/20$, this proves the lower
+bound. At nodes $0,1,1,1$ the cubic is
+$d\rho+d\rho^2/2+(1-3d/2)\rho^3$ and its remainder is nonpositive.
+Here $d=-\Phi'(1)=jJ_1(j)/2=\Phi''(1)$. In this cubic the coefficient of
+$d$ is nonnegative, and $4d^2=\mu\Cphi<25/16$. Substituting $d=5/8$ gives
+the upper polynomial $p_3$.
+
+For the regular pentagon take the conformal derivative
+$(1-z^5)^{-2/5}=\sum c_mz^{5m}$, where $c_0=1$ and
+$c_{m+1}/c_m=(5m+2)/(5m+5)$. The image has area $\pi S$ with
+$S=\sum c_m^2/(5m+1)$. Transport $\phi$ to this image as a trial function.
+After angular integration, retaining just $m=0,1$ gives a lower bound on
+the mass. The second term involves $I=\int_0^1s^5\Phi(s)^2\dd s$, and
+\eqref{eq:phi-chord-bounds} gives $I\ge989/336000$. For
+$T_m=1/6+1/(10m-2)$ the recursion gives
+\[
+ T_m-\left(\frac{c_{m+1}}{c_m}\right)^2 T_{m+1}-\frac{1}{5m+1}
+ =\frac{6(35m+23)}{25(m+1)^2(5m-1)(5m+1)(5m+4)}>0\quad(m\ge1).
+\]
+Multiplying by $c_m^2$ and summing from $m=3$ yields
+$S\le\sum_{m=0}^2c_m^2/(5m+1)+c_3^2T_3=538286/515625$. Hence
+\begin{equation}\label{eq:pent}
+ \frac{r_5}{\pi\mu}\le\frac{S}{1+4I/(25\Cphi)}<\frac{5211}{5000}.
+\end{equation}
+Assume from now on that $J(P)\le(5211/5000)\pi\mu$. The Faber--Krahn
+and Kohler--Jobin inequalities yield
+\[
+ 0\le\delta:=1-\mu/\lambda\le\delta_5:=211/5211,\qquad
+ D=1-8T(P)/\pi\le2\delta-\delta^2<0.084 .
+\]
+In the centered conformal coordinates of Section~\ref{sec:torsiontool},
+write the derivative $g=f'$ as
+\begin{equation}\label{eq:conformal-norm}
+  g(z)=a+h(z),\quad a>0,\quad
+  h(z)=\sum_{k=2}^\infty b_k z^k,\quad
+  e^2:=\norm{h}^2=\sum_{k=2}^\infty|\alpha_k|^2,\quad
+  a^2+e^2=1,
+\end{equation}
+where $\alpha_k=b_k/\sqrt{k+1}$. Put $x=e^2=1-a^2$. By \eqref{eq:coercive},
+$x<0.58$. In the interval $[0.15,0.58]$ one would have $2x(1-x)/3\ge.085$.
+Thus $x<3/20$. If $x=0$ the domain is a disk and the remainder $W$ below
+is identically zero.
+
+\subsection{Holomorphic weights and a mixed Green moment}
+For every square-integrable holomorphic $h$ and $Z\in H_0^1(\D)$ we have
+\begin{equation}\label{eq:weight}
+                 \norm{hZ}\le\norm h\,\norm{\nabla Z}/\sqrt\mu .
+\end{equation}
+To prove this, take a primitive $H$ of $h$. For any smoothly bounded
+$O\Subset\D$, Green's formula expresses $\int_O|h|^2\dd A$ as the sum of
+the signed areas enclosed by the images of its boundary curves. Parametrize
+each image by constant speed and subtract its mean. Wirtinger's inequality
+bounds the absolute signed area by the square of its length divided by
+$4\pi$, including for curves with self-intersections. Thus
+$4\pi\int_O|h|^2\dd A\le(\int_{\partial O}|h|\dd s)^2$.
+
+Start with a smooth compactly supported test $Z$, approximated by functions
+Morse at nonzero heights. For $\nu(t)=\int_{|Z|>t}|h|^2\dd A$, coarea and
+Cauchy--Schwarz give
+\[
+ \int_{|Z|=t}|\nabla Z|\dd s\ge 4\pi\nu(t)/[-\nu'(t)]
+\]
+for almost every $t$ in the range. On the disk of radius $\norm h$, take
+the radial decreasing rearrangement with distribution $\nu$ for ordinary
+area. Its energy is at most the original energy, and its squared mass is
+$\pi\norm{hZ}^2$. The first eigenvalue of that disk is $\mu/\norm h^2$.
+Density gives \eqref{eq:weight}, with the zero weight immediate. Also,
+$\big||h_1|^2-|h_2|^2\big|\le|h_1+h_2||h_1-h_2|$. Pairing with $Z$ and
+using \eqref{eq:weight} shows that $h\mapsto|h|^2$ is locally Lipschitz
+from the Bergman space into $H^{-1}$.
+
+Write $e_4^2=\sum_{k\ge4}|\alpha_k|^2$ and
+$I_w=\davg{w|h|^2G(wh)}$ for a smooth radial weight $w=w(s)$. The Poisson
+equation in angular mode $l$ gives $G(wz^l)=z^lP_{l,w}(s)$, where
+\begin{equation}\label{eq:free-profile}
+  P_{l,w}(s)=\frac14\int_s^1\int_0^1 u^l w(tu)\dd u\dd t.
+\end{equation}
+For polynomial $h$ set $n=k+l$ and $d_{kl}=\sqrt{(k+1)(l+1)(n+1)}$.
+Angular orthogonality gives
+\[
+  I_w=\sum_{k,l\ge2}m_{kl}\alpha_k\alpha_l\overline{\alpha_{k+l}},
+  \qquad
+  m_{kl}=d_{kl}\int_0^1 s^n w(s)P_{l,w}(s)\dd s.
+\]
+Cauchy--Schwarz along $k+l=n$ and then in $n$ gives
+$|I_w|\le e^2e_4\sup_{n\ge4}(\sum_{k+l=n}|m_{kl}|^2)^{1/2}$.
+For $w=\Phi$ we have $\Phi\le\rho(1-3s/8)$ and
+$P_{l,\Phi}\le P_{2,\rho}=\rho(2+3\rho)/96$. In a beta integral
+$\int_0^1s^n\rho^j\dd s$ for $j=2,3$, inserting $1-3s/8$ changes the
+integral by a factor $1-3(n+1)/[8(n+j+2)]\le19/24$. Since
+$(k+1)(l+1)\le(n+2)^2/4$, this gives
+\[
+  \left(\sum_{\substack{k,l\ge2\\ k+l=n}}|m_{kl}|^2\right)^{1/2}
+    \le\frac{19}{24}\,\frac{2+9/(n+4)}{96(n+3)}\sqrt{\frac{n-3}{n+1}}
+    \le\frac{19}{24}\,\frac{25}{768\sqrt{180}}<\frac{1}{500},
+\]
+For the last comparison put $v=n-3$ and use
+$(n+3)^2(n+1)/(n-3)=v^2+16v+84+144/v\ge180$.
+Pass to polynomial limits using \eqref{eq:weight} and boundedness of
+multiplication by a smooth weight on $H_0^1$ and its dual. We obtain
+\begin{equation}\label{eq:mixedI}
+                         |I_\Phi|\le e^2e_4/500 .
+\end{equation}
+
+\subsection{Energy and mass of the orthogonal remainder}
+Put $p=|a+h|^2$, $\kappa=\lambda a^2$, and
+$c=\davg{(u\circ f)\phi}/\Cphi>0$. Normalize the pullback by writing
+\begin{equation}\label{eq:V-pde}
+  V=\frac{u\circ f}{c}=\phi+W,\qquad W\perp\phi,\qquad -\Delta V=\lambda pV.
+\end{equation}
+Testing with $\phi\circ f^{-1}$ yields
+$\lambda\le\mu\Cphi/\davg{p\phi^2}\le\mu/a^2$. In particular
+$\delta\le x$ and $\kappa\le\mu$. Set $d=1/2-x$, $w=\norm{\phi h}^2$
+and $F=\phi(2a\Re h+|h|^2)$. We claim
+\begin{align}
+  \left(d+\frac{w}{\Cphi}\right)\bigl[(x-\delta)\Cphi-w\bigr]
+    &\le\mu\|F\|_{-1}^2-\frac{w^2}{\Cphi},
+    \label{eq:projected-residual}\\
+  \left(d+\frac{w}{\Cphi}\right)\norm{\nabla W}
+    &\le\mu\|F\|_{-1}.
+    \label{eq:W-energy}
+\end{align}
+Define $B(Y,Z)=\lambda^{-1}\davg{\nabla Y\cdot\nabla Z}-\davg{pYZ}$.
+In the energy inner product, the compact positive operator $\mu G(p\,\cdot)$
+has eigenvalues $\mu/\lambda_i(P)$. At least one nodal domain of a second
+eigenfunction has area at most $\pi/2$. Faber--Krahn on that domain yields
+$\lambda_2(P)\ge2\mu$. If $Z\perp\phi$, the trace of the compression to
+$\operatorname{span}\{\phi,Z\}$ is at most $\mu/\lambda+1/2$. The diagonal
+entry in the energy-unit direction of $\phi$ equals $1-x+w/\Cphi$.
+Subtracting it gives $\mu B(Z,Z)\ge(d+w/\Cphi)\norm{\nabla Z}^2$.
+By the equation, $B(V,\cdot)=0$ and
+$B(W,W)=B(\phi,\phi)=(x-\delta)\Cphi-w$. Moreover,
+$B(W,Z)=\davg{FZ}$ for $Z\perp\phi$. Since $\davg{F\phi}=w$ and
+$G\phi=\phi/\mu$, the projected source $F_\perp=F-w\phi/\Cphi$ satisfies
+$\mu\|F_\perp\|_{-1}^2=\mu\|F\|_{-1}^2-w^2/\Cphi$. Estimating
+$B(W,W)=\davg{F_\perp W}$ by duality proves both inequalities.
+
+\begin{proposition}\label{prop:disk}
+Under the preceding spectral bound, set $\eta=1-\kappa/\mu$. Then
+\begin{equation}\label{eq:energy}
+  e<\frac27,\qquad
+  \norm{\nabla W}<0.29,\qquad
+  \norm{W}<0.076,\qquad
+  0\le\eta\le\frac35 e^2<\frac{1}{20}.
+\end{equation}
+\end{proposition}
+\begin{proof}
+It suffices to treat $x>0$. Put $y=e_4/e$, $H=w/x$ and
+$T=\|\phi\Re h\|_{-1}^2/x$. Use the constants
+\[
+  M=5.784,\quad m=0.0644,\quad q=0.0372,\quad t=0.001202,\quad v=0.000976,
+  \quad c_1=\frac{M}{125}.
+\]
+The normalized modal coefficients of $H$ and $T$ for $k\ge2$ are
+\[
+  (k+1)\int_0^1 s^k\Phi(s)^2\dd s,\qquad
+  \frac{k+1}{2}\int_0^1 s^k\Phi(s)P_{k,\Phi}(s)\dd s.
+\]
+As $k$ increases, the probability measures $(k+1)s^k\dd s$ shift toward
+one. Both profiles decrease with $s$, and $P_{k,\Phi}$ also decreases with
+$k$. It suffices to bound the integrals at $k=2,4$ with $p_3$ in place of
+$\Phi$. For $H$ the two polynomial integrals give $173/2688,2407/88704$.
+For $T$ they give $30991/25804800,8600083/38149816320$. Hence
+$H\le m-qy^2$ and $T\le t-vy^2$. By \eqref{eq:weight},
+$\|\phi|h|^2\|_{-1}\le e\norm{\phi h}/\sqrt\mu$. The cross term in
+$\|F\|_{-1}^2$ is $4a\Re I_\Phi$, so \eqref{eq:mixedI} gives
+\begin{equation}\label{eq:raw-residual}
+  \frac{\mu}{x}\|F\|_{-1}^2\le 4M(1-x)(t-vy^2)+xH+c_1\sqrt x\,y.
+\end{equation}
+On expanding \eqref{eq:projected-residual}, the terms $-w^2/\Cphi$ cancel.
+After division by $x$ the coefficient of $H$ on the right is $d+\delta$.
+Since $x<3/20$, the coefficient of $-y^2$ is at least
+$h_0=7q/20+(17/20)4Mv$. Completing the square in $y$ gives
+\begin{equation}\label{eq:scalar}
+  d\left(1-\frac{\delta}{x}\right)\Cphi
+    \le m(d+\delta)+4Mt(1-x)+\frac{c_1^2 x}{4h_0}.
+\end{equation}
+Set $X=4/49$, $d_X=1/2-X$, $C_0=0.2694$ and $C_1=0.2697$. The concave
+quadratic
+\[
+  (x-\delta_5)\left(\frac12-x\right)C_0
+    -x\left[m\left(\frac12-x+\delta_5\right)+4Mt(1-x)+\frac{c_1^2 x}{4h_0}\right]
+\]
+exceeds $1/40000$ at both endpoints of $[X,3/20]$. Since
+$\delta\le\delta_5$, \eqref{eq:scalar} rules out this interval. Thus $x<X$.
+Moreover $d+\delta\le1/2$ and $c_1^2/(4h_0)<4Mt$, so the right side of
+\eqref{eq:scalar} is at most $m/2+4Mt<(3/5)d_XC_0(1-\delta_5)$.
+It follows that $\eta=(x-\delta)/(1-\delta)\le3x/5<1/20$.
+
+Now set $E=0.29$ and
+\[
+  L=MX\left[4Mt(1-X)+\frac{c_1^2 X}{16Mv(1-X)}\right].
+\]
+Complete the square in $y$ in \eqref{eq:raw-residual}. Since $x(1-x)$ and
+$x^2/(1-x)$ increase on $[0,X]$, we get $\mu^2\|F\|_{-1}^2\le L+MXw$.
+Substitution of the rational constants gives
+\[
+  E^2 d_X^2-L>0.0016,\qquad
+  Xm\,\bigl[MX-2E^2 d_X/C_1\bigr]_+<0.0012,
+\]
+and hence $L+MXw<E^2(d_X+w/C_1)^2\le E^2(d+w/\Cphi)^2$ for $0\le w\le Xm$.
+Equation \eqref{eq:W-energy} yields $\norm{\nabla W}<E$. Since $W\perp\phi$
+and the second disk eigenvalue is $j_{1,1}^2>14.6$, we have
+$\norm{W}\le E/j_{1,1}<0.076$.
+\end{proof}
+
+\section{Connectedness at a common interval of heights}\label{sec:levels}
+Retain the normalization and spectral bound of Section~\ref{sec:disk}. Let
+\[
+  r_-=\frac25,\quad r_+=\frac{81}{100},\quad s_\pm=r_\pm^2,\qquad
+  E=0.29,\quad Z=0.076,\quad M=5.784,\quad \Lambda=6.03.
+\]
+Write $\tau=t_*/c$. Orthogonality of $W$ and $\phi$ in energy, the identity
+\eqref{eq:V-pde}, and the estimates \eqref{eq:disk-constants} and
+\eqref{eq:energy} give
+\begin{equation}\label{eq:tau}
+  \tau^2=\davg{pV^2}=(1-\delta)\Cphi+\lambda^{-1}\norm{\nabla W}^2,
+  \qquad
+  0.508<\tau<0.534.
+\end{equation}
+Also $\kappa\le\mu<M$, $\lambda\le\mu/(1-\delta_5)<\Lambda$,
+$2\lambda ae<10/3$ and $\lambda x<1/2$. Set $U=G(\phi h)$.
+Expanding the density $p=|a+h|^2$ in the Green representation gives
+\begin{equation}\label{eq:green}
+  V=(1-\eta)\phi+2a\lambda\Re U+\kappa GW+2a\lambda G(W\Re h)+\lambda G(|h|^2 V).
+\end{equation}
+
+\subsection{Inner and outer values and a transverse radial derivative}
+Put $B_0(s)=s^2(3-2s)$ and $\Gamma(s)=\pi\norm{G_z}$. Define
+\[
+  b_2(s)=\frac{1+B_0(s)}{8},\qquad
+  b_h(s)=\sqrt{\frac{1+3B_0(s)}{32}},\qquad
+  b_\phi(s)=\sqrt{b_2(s)\,G\bigl[B_0(1-3s/8)^2\bigr](z)}.
+\]
+and
+\[
+  A_0(s)=\frac{11/40+B_0(s)/5}{\rho},\qquad
+  A_+(s)=\frac{25/96+B_0(s)/21}{\rho},\qquad
+  T_W(s)=\frac{2ZE}{1+\sqrt\rho}.
+\]
+Appendix~\ref{app:green} proves the pointwise estimates for $GW$, $U$,
+$G(|h|^2)$ and the radial derivatives used below, in particular
+\eqref{eq:uniform-G}, \eqref{eq:sources-all} and \eqref{eq:u-slope}.
+
+Take $w(s)=B_0(s)(1-3s/8)^2$. Since $w\ge0$ is radial, $Gw$ is radially
+decreasing. Solving for each monomial gives
+\[
+  Gw(s)=\sum_{j=2}^5[t^j]w(t)\,\frac{1-s^{j+1}}{4(j+1)^2}
+       =\frac{1313}{38400}-\frac{s^3}{12}+\frac{17s^4}{256}-\frac{123s^5}{6400}+\frac{s^6}{512}.
+\]
+Pairing the weighted kernel with $\norm{W}<Z$, or the unweighted kernel
+with $\norm{Wh}\le eE/\sqrt\mu$, gives the two bounds
+\[
+  |G(W\Re h)(z)|\le e\min\left\{Zb_h(s),\ \frac{E\Gamma(s)}{\sqrt\mu}\right\}.
+\]
+Use $Y(s)=8\Gamma(s)^2$ from \eqref{eq:Y-exact} and $B_0\le9s/8$ to get
+\[
+  256\bigl(b_h(s)\Gamma(s)\bigr)^2=\bigl(1+3B_0(s)\bigr)Y(s)
+    \le\left(1+\frac{27s}{8}\right)(1-s)\le\frac{1225}{864}<\left(\frac65\right)^2.
+\]
+Let $n_0=\sup_\D(V-\phi)$. It is finite and is nonnegative since $W\perp\phi$.
+Subtract $\phi$ from \eqref{eq:green}. Use positivity of the Green kernel,
+$b_2\le1/4$, $b_\phi\le\sqrt{Gw(0)/4}$, and the geometric mean of the two
+bounds on the mixed term. Writing $n=13/40$, we obtain
+\[
+  \frac78 n_0\le\frac{10}{3}(0.019)+0.19MZ
+    +\frac{10}{3}\sqrt{\frac{3ZE}{40\sqrt{5.783}}}
+    +\frac12\sqrt{\frac{1313}{153600}}<\frac78 n,
+\]
+In the inner disk $r\le r_-$ we drop the nonnegative term
+$\lambda G(|h|^2 V)$. Equation \eqref{eq:phi-chord-bounds} and
+$\eta<1/20$ give
+\[
+  V(z)\ge\frac{19}{20}(1-s_-)\left(1-\frac{9s_-}{20}\right)
+    -\frac{10}{3}(0.012)-0.19MZ-\frac{10}{3}Zb_h(s_-)>\frac{9}{16}.
+\]
+In the outer region $r\ge r_+$ we have $b_\phi\le\sqrt{Gw(s_+)/4}<0.0721$
+and $\Phi(s)\le p_3(s_+)<0.2545$. Retaining the first three subtracted terms
+in \eqref{eq:Y-exact} gives
+$8\Gamma^2\le(1-s_+)(1-s_+/2-s_+^2/6-s_+^3/12)$, so $\Gamma<0.158$.
+Put $J_+=\Lambda(0.0721+n/4)$. The sum $(1-\eta)\phi+\lambda G(|h|^2V)$
+is at most $(1-x)(0.2545)/(1-\delta_5)+xJ_+$, an increasing function of $x$.
+At $X=4/49$, using $1/\sqrt\mu<0.416$, this gives
+\[
+  V(z)\le\frac{10}{3}(0.0152)+\frac{3}{20}ME(1-r_+)
+    +\frac{10}{3}E(0.158)(0.416)
+    +\frac{1-X}{1-\delta_5}(0.2545)+XJ_+<0.482.
+\]
+
+On $r_-\le r\le r_+$ set
+$\overline T=2ZE/(1+\sqrt{1-s_+})$ and
+$B_*(r)=(5.783/2)r\,b(r^2)$, where $b$ is defined in \eqref{eq:avg-lower}.
+Then $-\phi'(r)\ge B_*(r)$. The kernel derivative is locally integrable
+and the sources are smooth in the interior. Away from the observation point
+the explicit kernel formula controls differentiation under the integral.
+Differentiate \eqref{eq:green} radially. Estimate the mixed term by
+Cauchy--Schwarz against $|\partial_rG_z|\dd A$. For the last term use
+$(\partial_rG_z)_+$ and $0\le V\le\phi+n$. The result is
+\begin{equation}\label{eq:slope-unified}
+  -\partial_r V(z)\ge F_*(r):=\frac{19}{20}B_*(r)-\frac{10}{3}\cdot\frac{1}{16}
+    -\frac{3}{20}ME-\frac{10}{3}\sqrt{\overline T\,A_0(r^2)}
+    -\frac12\left(\frac16+nA_+(r^2)\right).
+\end{equation}
+Since $B_0/\rho=2s^2+s^2/\rho$, both $A$ functions have nonnegative
+power-series coefficients in $r^2$. Thus $A_+(r^2)$ is convex in $r$.
+The same holds for $\sqrt{A_0(r^2)}$, the $\ell^2$ norm of a sequence
+of nonnegative convex monomials. Since
+$(rb(r^2))''=r(-87/20+25r^2/8)<0$, the function $F_*$ is concave.
+Substitution at $r_-$ and $r_+$ gives lower bounds $1.027$ and $1.385$
+for $B_*$. The respective upper bounds for $\sqrt{\overline T A_0}$ are
+$0.098$ and $0.185$, and those for $A_+$ are $0.314$ and $0.858$.
+These comparisons follow by squaring positive quantities.
+Consequently $F_*(r_-)>1/20$ and $F_*(r_+)>3/200$. Throughout the annulus,
+\[
+                         -\partial_rV>1/100 .
+\]
+
+\subsection{Exclusion of a nonconvex minimizer}
+Whenever $|t/t_*-1|\le1/20$, \eqref{eq:tau} implies
+\[
+  0.482<\frac{19}{20}(0.508)<\frac{t}{c}<\frac{21}{20}(0.534)<\frac{9}{16}.
+\]
+Along every ray $V(re^{i\theta})$ is above $t/c$ for $r\le r_-$, below
+$t/c$ for $r\ge r_+$, and strictly decreasing in between. Its unique
+crossing has radius $R(\theta)\in(r_-,r_+)$. Interior analyticity and the
+implicit function theorem give a real-analytic periodic function $R$.
+Consequently $\{V>t/c\}$ is star-shaped about zero. Its conformal image
+$\{u>t\}$ is connected.
+
+\begin{proposition}[Convexity of an attained minimizer]\label{prop:attained}
+Every global minimizer among simple polygons of prescribed area with at
+most $N$ effective sides is convex.
+\end{proposition}
+\begin{proof}
+Suppose an attained minimizer were nonconvex. By Section~\ref{sec:pressure}
+it would have $N\ge5$ and $J(P)\le r_5$. Equation \eqref{eq:pent} gives the
+spectral bound of Section~\ref{sec:disk}. Choose a regular height in the
+intersection of the neighborhood of $t_*$ from Section~\ref{sec:pressure}
+and the interval $|t/t_*-1|<1/20$. Equations \eqref{eq:countlow} and
+\eqref{eq:countup} give $C(t)\ge2$, while the radial comparison just proved
+gives $C(t)=1$.
+\end{proof}
+
+\section{Proof of the main theorem and the equality case}\label{sec:assembly}
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Fix $N\ge3$ and $A>0$, and let $m_N$ be the infimum of $J$ for simple
+polygons of area $A$ with at most $N$ effective sides. The regular
+$N$-gon gives $m_N\le r_N$. If $m_N<r_N$, choose a minimizing sequence
+$P_i$ with $J(P_i)<r_N$ for every $i$. By Proposition~\ref{prop:convex}
+all its members are nonconvex. A simple polygon has at least three convex
+vertices, since its exterior angles sum to $2\pi$ and each positive exterior
+angle is strictly less than $\pi$. If some $P_i$ had at least two reflex
+vertices, then $N\ge5$ and $p(P_i)\le N-2$. Proposition~\ref{prop:turns}
+with $m=N-2$ would give $J(P_i)>r_N$, a contradiction.
+Hence each $P_i$ has exactly one reflex vertex. When the side count precludes
+even one such vertex, the contradiction is already complete.
+
+Lemma~\ref{lem:compact} gives a simple polygon $Q$ of at most $N$ sides
+with $0<|Q|\le A$ and $\lambda_1(Q)\le m_N/A$. Dilate it to a polygon
+$Q_A$ of area $A$. By scale invariance,
+\[
+ m_N\le J(Q_A)=|Q|\lambda_1(Q)\le A\lambda_1(Q)\le m_N .
+\]
+Thus $Q_A$ attains the global minimum. Proposition~\ref{prop:attained}
+gives convexity, and Proposition~\ref{prop:convex} then gives
+$m_N=J(Q_A)\ge r_N$, contrary to assumption. This proves \eqref{eq:main}.
+
+Any polygon with $J(P)=r_N$ attains the minimum after rescaling to area
+$A$. It is therefore convex, and equality in Proposition~\ref{prop:convex}
+forces it to have exactly $N$ effective sides and to be regular.
+Conversely the regular $N$-gon attains $r_N$. Its admissibility in the
+exactly-$N$ class proves the asserted minimum and uniqueness there as well.
+\end{proof}
+
+\appendix
+\section{Curvature of the mixed spectral function at acute openings}\label{app:acute}
+Here $F$ is the function of Section~\ref{sec:angles}, $s=\alpha/(2\pi)$
+parametrizes the opening, and $D=sZ$ denotes an area factor. We use the
+sector map and angular decomposition of Wang \cite[Appendix~S1]{wang}, with
+the bounds for the first eigenvalue from \cite{unified}.
+
+\subsection{Variation of the mixed eigenvalue}
+Put $h=1/5$ and $0<s\le h$. On the unit sector of opening $2\pi s$, a
+primitive of $(1-\zeta^{1/s})^{-2s}$ maps the two radii to the equal sides
+of a triangle and the circle arc to its base. Put
+$\tau=-\log|\zeta|$, $x=\tau/s$, and $\theta=\arg(\zeta)/s$. An overbar
+denotes the normalized circle mean in $\theta\in[0,2\pi]$. Integrals with
+no measure specified use $\dd\tau\,\dd\theta/(2\pi)$. The positive ground
+state is even about the bisector, so its traces on the two sides agree.
+Restricting to periodic tests therefore preserves the first eigenvalue.
+The trace at $\tau=0$ is zero. Write
+\[
+ E_s(u)=\int(u_\tau^2+s^{-2}u_\theta^2),\quad
+ W=|1-e^{-x+i\theta}|^{-4s},\quad \rho=e^{-2\tau}W,\quad
+ L=\inf_{u\ne0}\frac{E_s(u)}{\int\rho u^2}.
+\]
+Normalize the ground state by $\int\rho u^2=1$. Put $Z=2\int\rho$ and
+$D=sZ$. Conformal invariance gives $F(2\pi s)=\pi DL$. The equal sides
+have length $s\mathrm B(s,1-2s)$, so their area formula and the gamma
+reflection identity give
+\[
+ A(s):=\log Z=\sum_{\substack{k\ge3\\k\ {\rm odd}}}
+       \frac{(2^{k+1}-4)\zeta(k)}{k}s^k .
+ \tag{A.1}\label{eq:acute3}
+\]
+All coefficients are positive. The first two terms of the zeta series with
+an integral bound on the tail give $\zeta(3)<5/4$ and $\zeta(k)<17/16$ for
+$k\ge5$. Setting $y=2s\le2/5$ gives
+\[
+ A\le5s^3+\frac{2(17/16)y^5}{5(1-y^2)}<0.05,\qquad
+ sA'\le15s^3+\frac{2(17/16)y^5}{1-y^2}<0.15 .
+\]
+Consequently $Z<1.06$ and $P_s=sD'/D=1+sA'<1.2$. Keeping the cubic
+term alone in \eqref{eq:acute3} yields
+\[
+ \frac{D''}{Ds}=\frac{A''+2A'/s+(A')^2}{s}
+ \ge48\zeta(3)>54.
+ \tag{A.2}\label{eq:acute4}
+\]
+The enclosures $3.141<\pi<3.142$ follow from
+$\pi/4=4\arctan(1/5)-\arctan(1/239)$ and the alternating arctangent
+series. The exponential series with a geometric tail gives $2.718<e<2.719$.
+
+For $j=1,2$ let $W_j$ be the $j$th $s$-derivative at fixed $\tau,\theta$.
+Set $W_0=W-1$. Write
+\begin{align*}
+ m_j&=\int e^{-2\tau}W_j u^2,\qquad
+ \beta=s^{-2}\int u_\theta^2/L,\\
+ H(\phi)&=E_s(\phi)-L\int\rho\phi^2,\qquad
+ f(\phi)=E_s'(u,\phi)-L\int e^{-2\tau}W_1u\phi .
+\end{align*}
+On the energy-orthogonal complement of $u$, use the bilinear form associated
+with $H$ as inner product, and put $G=\|f\|_{H^*}^2$ on that complement.
+Differentiation gives $L'/L=-2\beta/s-m_1$. The vector
+$u'+m_1u/2$ belongs to the complement and represents $-f$ there.
+Differentiating a second time gives
+\[
+ \frac{(DL)''}{DL}=\frac{D''}{D}-m_2-2P_sm_1/s+2m_1^2+
+       \frac{\beta}{s^2}(6-4P_s+4sm_1)-2G/L .
+ \tag{A.3}\label{eq:acute5}
+\]
+Indeed $E_s''(u,u)=6L\beta/s^2$ and $f(u)=L'$. Substitution in the second
+variation gives the displayed identity. The differentiations are valid
+locally in $s>0$ in the indicated range. Near $\tau=0$ use
+$\av{\phi^2}(\tau)\le\tau E_s(\phi)$ and the bound
+$C\tau^{-4s}(1+|\log\tau|)^2$ for the weight and its first two
+derivatives. At infinity the mass weight decays exponentially. These
+bounds give twice continuous differentiability in form norm. Simplicity
+and the spectral gap below yield local twice differentiability of the
+normalized eigenpair.
+
+\subsection{The ground state, the gap and multiplier bounds}
+Write $U=\av u$ and $v=u-U$. The binomial series gives $\av W\ge1$.
+The radial disk test $(1-r^2)(1-r^2/3)$ has Rayleigh quotient $110/19$
+by direct integration, whence $L<5.8$. The Green kernel of the radial
+equation in $\tau$ is $\min(\tau,y)$. Thus Cauchy--Schwarz gives
+\[
+       0\le U(\tau)\le L\tau\int\rho u
+        \le L\sqrt{Z/2}\,\tau<C\tau,\qquad C=17/4 .
+ \tag{A.4}\label{eq:acute6}
+\]
+For a function of circle mean zero, apply the ground-state identity in
+every nonzero Fourier mode with the positive comparison function
+$x^{4/5}e^{-|k|x}$. The result is
+\[
+  \int_0^\infty(|\psi_x|^2+k^2|\psi|^2)\dd x
+  \ge\int_0^\infty P(x)|\psi|^2\dd x,\qquad P(x)=0.16/x^2+1.6/x .
+ \tag{A.5}\label{eq:acute7}
+\]
+If $x\le1$, then $1-e^{-x}\ge xe^{-x/2}$, so $e^{-2sx}W\le x^{-0.8}$.
+If $x\ge1$, use $W\le8/5$ and $xe^{-2sx}\le1/(2es)$. Both ranges give
+$Ls^2e^{-2sx}W/P\le.23$. On the angular mean-zero space the mass form
+multiplied by $L$ is thus bounded by $\sigma E_s$, $\sigma=0.23$.
+
+Consider the codimension-one space defined by $a(d)=0$, where
+$a=\av\phi$ and $d=3/4$. Write $\phi=a+\psi$. On $(0,d)$, the square
+of $a(\tau)$ is at most $\tau(1-\tau/d)$ times its energy on this interval,
+using its two zero endpoints. On $(d,\infty)$ the corresponding factor
+is $\tau-d$. Integrating the unperturbed mass gives an energy coefficient
+at most
+\[
+ L\max\{(7e^{-3/2}-1)/12,\,e^{-3/2}/4\}<0.33 .
+\]
+Let $a_n(z)=(z)_n/n!$, with $(z)_n$ the rising factorial. Since
+$\av W-1=\sum_{n\ge1}a_n(2s)^2 e^{-2nx}$ and $a_n(2s)\le2s$, the
+additional radial mass has energy coefficient at most $Ls^4\zeta(2)<0.02$,
+using $|a|^2\le\tau E_s(a)$. Similarly,
+$\Var_\theta W\le\sum_{n\ge1}a_n(4s)^2 e^{-2nx}\le16s^2/(e^{2x}-1)$.
+Equation \eqref{eq:acute7} and $1/P\le5x/8$ bound the mixed coefficient by
+\[
+ Ls^3\Big(10\int_0^\infty x^2/(e^{2x}-1)\dd x\Big)^{1/2}
+ =Ls^3\sqrt{10\zeta(3)/4}<0.09.
+\]
+The diagonal coefficients of the two-component mass form are less than
+$0.35,0.23$ and its off-diagonal coefficient has absolute value less than
+$0.09$. Hence its quadratic form is bounded by $E_s/2$ on this
+codimension-one space. The min--max principle bounds the second eigenvalue
+of the mass form relative to energy by $1/2$. The largest eigenvalue is
+one with eigenvector $u$. Consequently
+\[
+             H\ge E_s/2\quad\text{on }u^{\perp_{E_s}}.
+ \tag{A.6}\label{eq:acute8}
+\]
+
+For a mean-zero function $v$ and an arbitrary test $\phi$, put
+$\|\cdot\|_E=E_s(\cdot)^{1/2}$. We shall use
+\begin{align}
+ L\int e^{-2\tau}|W_j|v^2&\le T_j s^{2-j}\|v\|_E^2,
+   \quad (T_1,T_2)=(12,60),\notag\\
+ L\int e^{-2\tau}|W_1v\phi|&\le25s\|v\|_E\|\phi\|_E .
+ \tag{A.7}\label{eq:acute9}
+\end{align}
+To prove these estimates put $b=4s$, $l=-\log(1-e^{-x})$,
+$a=x/(e^x-1)$ and $d_0=x^2 e^x/(e^x-1)^2$. Positivity of the
+Fourier coefficients gives
+\[
+ |sW_1|\le g_1=(1-e^{-x})^{-b}b(l+a),\quad
+ |s^2W_2|\le g_2=(1-e^{-x})^{-b}\{b^2(l+a)^2+bd_0\}.
+\]
+By \eqref{eq:acute7} and the one-dimensional Hardy inequality with
+weight $1/(4x^2)$ it suffices to bound $Le^{-2sx}g_j/P$ and
+$2Le^{-2sx}xg_1/\sqrt P$.
+
+For $x\le1$ write $y=-\log x$. Then $l+a\le3/2+y$, $d_0\le1$ and
+$e^{-2sx}(1-e^{-x})^{-b}\le x^{-0.8}$. Apply $1/P\le5x/8$ and
+$\sup_{y\ge0} y^m e^{-\eta y}=(m/(e\eta))^m$. The three upper bounds
+are less than $10,54,16$, respectively. For example the second is at most
+$(5L/8)[0.64(9/4+15/e+100/e^2)+0.8]$. For $x\ge1$, using
+$1/(1-e^{-x})<8/5$ gives
+\[
+ g_1\le2.1(1+x)e^{-x},\qquad
+ g_2\le2.7(1+x)^2e^{-2x}+3.3x^2e^{-x}.
+\]
+The same elementary maximum bound gives upper bounds $8,23$ for the
+first two quantities and $2(5.8)(0.8)(2.1)(0.42+0.82)<25$ for the last.
+This proves \eqref{eq:acute9}.
+
+\subsection{Circle variances and radial moments}
+Define
+\[
+ N_j(s)^2=s^{-2}\int_0^\infty
+       \frac{x^2e^{-4sx}\Var_\theta(s^jW_j)}{P(x)}\,\dd x,\qquad
+ e_j=Cs N_j(s),\quad j=0,1,2 .
+\]
+Changing to $x$ and applying \eqref{eq:acute6}, \eqref{eq:acute7} and
+Cauchy--Schwarz shows that $e_js^{5/2-j}$ bounds the energy-dual norm
+of $\psi\mapsto\int e^{-2\tau}W_jU\psi$ on the mean-zero space.
+We claim
+\[
+ e_0\le Ch(0.8),\qquad e_1\le Ch(2.7),\qquad s^2e_2\le h^2Ch(13).
+ \tag{A.8}\label{eq:acute10}
+\]
+
+First replace $1/P$ by $5x/8$. Expand the binomial coefficients as
+polynomials in $s$. Every nonzero Fourier mode of $W$ is a sum of positive
+terms $c s^a e^{-Nx}$ with $a\ge1$. Indeed, the coefficient of mode $l$
+is $\sum_{a_1-a_2=l}a_{a_1}(2s)a_{a_2}(2s)e^{-(a_1+a_2)x}$.
+At fixed $\tau$, applying $s^j\partial_s^j$ to one monomial multiplies it
+by $a+Nx$ for $j=1$ and by $(a-1+Nx)^2+a-1$ for $j=2$. A product of two
+terms of the same mode has even total decay rate $2n$. Let $d$ be its
+total degree in $s$ and $g=d/2-1+nx$. The products of the multipliers
+are bounded by $M_1=(1+g)^2$ and $M_2=g^2(1+g)^2$, respectively. Indeed,
+with $v_i=a_i-1+N_ix\ge0$, we have $(v_1+v_2)/2=g$. The first multiplier
+is $1+v_i$ and the second is at most $v_i(1+v_i)$. The two bounds follow
+by arithmetic--geometric mean. Set $M_0=1$.
+
+After integration of the positive terms, the bound for $s^2N_j(s)^2$
+is a positive linear combination of $s^d/(2n+4s)^{4+m}$, with $d\ge2$
+and $m\le2j$. Its individual terms have logarithmic derivative with
+respect to $\log s$ at least $2-(4+m)2/7$. The resulting bound increases
+in $s$ for $j=0,1$ and increases after multiplication by $s^4$ for $j=2$.
+Thus the endpoint $s=h$ suffices.
+
+At $n=1$ the zeroth-order circle variance is exactly $8h^2 e^{-2x}$.
+For the differentiated variances its extra factors are $(1+x)^2$ and $x^4$.
+With $w=14/5$ the corresponding contributions to $N_j(h)^2$ are at most
+\[
+ H_0=30/w^4,\quad H_1=5(6/w^4+48/w^5+120/w^6),\quad H_2=25200/w^8 .
+\]
+For $n\ge2$ we can bound the nonzero modes by all modes. Put $z=s/h$.
+The $e^{-2nx}$ coefficient in the circle mean of $W^2$ is
+$a_n(0.8z)^2$, and $a_n(0.8)\le a_2(0.8)=0.72$. Normalize the coefficients
+of this polynomial as probabilities. The random degree is $d=2+Y$, where
+$Y$ is a sum of independent Bernoulli variables, two for each
+$1\le i<n$, each with success probability $0.8/(i+0.8)$. Since
+$1/(i+0.8)\le1/(i+1/2)\le\int_i^{i+1}\dd y/y$, we have
+$\mathbb EY\le1.6\log n$. For $j=0,1,2$ take, respectively,
+\[
+ (\ell,K,\nu)=(0,1,0),\quad (1/2,18/5,1),\quad (1,8,2).
+\]
+Then $M_j(g)\le K e^{\ell g}$. For $j=2$ use
+$g^2(1+g)^2\le(g+1/2)^4$. Independence gives
+$\mathbb E e^{\ell Y/2}\le\exp[(e^{\ell/2}-1)\mathbb EY]\le n^\nu$.
+Put $b_*=2-\ell$ and use $\int_0^\infty x^3 e^{-\lambda x}\dd x=6/\lambda^4$.
+Retain the terms $n=2,3$ and bound the remaining tail by
+$n^\nu/(b_*n+0.8)^4\le n^{\nu-4}/b_*^4$ and the midpoint integral from
+$7/2$. This gives
+\[
+ N_j(h)^2\le H_j+48.6K\left[
+ \frac{2^\nu}{(2b_*+0.8)^4}+\frac{3^\nu}{(3b_*+0.8)^4}
+ +\frac{(7/2)^{\nu-3}}{(3-\nu)b_*^4}\right].
+ \tag{A.9}\label{eq:acute11}
+\]
+For the three triples the right sides are less than $0.63,6.90,161$.
+Taking square roots proves \eqref{eq:acute10}. The exact leading factor
+$x^4$ has the same monotonicity after multiplication by $s^4$ when $j=2$.
+
+For the radial moments define
+$J_{mj}=s^{-(m+3-j)}\int_0^\infty\tau^m e^{-2\tau}\av{W_j}\dd\tau$,
+$j=1,2$. We need
+\[
+ s^2 J_{11}\le6h^2,\qquad s^2 J_{21}\le4h^2,\qquad
+ s^2 J_{22}\le15h^2 . \tag{A.10}\label{eq:acute12}
+\]
+On expanding the positive series for $\av W$, each term of $s^2J_{mj}$
+is proportional to $s^d/(2n+2s)^{m+k+1}$ with $d\ge2$ and $k\le j$.
+It increases with $s$ since $s/(n+s)\le1/6$ and $m+j+1\le5$ for the
+three moments. At $s=h$ put $D_n=\sum_{i=0}^{n-1}0.4/(i+0.4)$ and
+$U_n=\sum_{i=0}^{n-1}(0.4/(i+0.4))^2$. The $n$th contribution to
+$J_{mj}(h)$ is
+\[
+ \frac{a_n(0.4)^2}{h^2}\sum_{k=0}^j \frac{b_{jk}(m+k)!}{[2(n+h)]^{m+k+1}},
+ \quad (b_{1k})=(2D_n,2n),\quad
+ (b_{2k})=(4D_n^2-2U_n,\,4n(2D_n-1),\,4n^2).
+\]
+The first terms for $J_{11},J_{21},J_{22}$ are $275/108,125/48,2875/324$.
+For $n\ge2$ we have $a_n(0.4)^2/h^2<2$ and $D_n\le\sqrt n$, the latter
+by induction on consecutive terms. The three tails are therefore bounded by
+\[
+ \sum(n^{-3/2}+n^{-2}),\qquad
+ \sum(n^{-5/2}+1.5n^{-3}),\qquad
+ 2\sum(n^{-2}+3n^{-5/2}+3n^{-3})
+\]
+respectively, with each sum starting at $n=2$.
+Now $\sum_{n\ge2}n^{-a}\le(3/2)^{1-a}/(a-1)$ gives \eqref{eq:acute12}.
+
+\subsection{The curvature bound}
+Let $V=e_0/(1-\sigma)<0.9$. On mean-zero tests the ground-state equation has
+angular source $W_0U+Wv$, with the common radial weight $e^{-2\tau}$.
+Equations \eqref{eq:acute7} and \eqref{eq:acute10} and the mass bound give
+\[
+ \|v\|_E\le LV s^{5/2},\qquad e_1<2.3,\qquad s^2e_2<11.1h^2.
+\]
+Expand $u^2=U^2+2Uv+v^2$ and apply \eqref{eq:acute6}, \eqref{eq:acute10}
+and \eqref{eq:acute9} to the respective terms. The result is
+\[
+ |m_j|\le s^{5-j}\{ C^2J_{2j}+2LV e_j+LT_jV^2s^2\}.
+ \tag{A.11}\label{eq:acute13}
+\]
+Substituting \eqref{eq:acute12} and \eqref{eq:acute13} with $s\le h$ gives
+$s|m_1|<0.04$. In particular $6-4P_s+4sm_1>0$ in \eqref{eq:acute5}.
+
+In estimating $f$, the term $E_s'(u,\cdot)$ acts only on the angular
+component and has energy-dual norm at most $2\|v\|_E/s$. In the mass
+derivative the angular source from $U$ is bounded by $e_1$. For its radial
+source use $|\av\phi|\le\sqrt\tau\,\|\av\phi\|_E$ and Cauchy--Schwarz on
+the two adjacent moments. These two parts are energy orthogonal. Apply the
+mixed estimate in \eqref{eq:acute9} to $W_1v$. This yields
+\[
+ \|f\|_{E^*}\le Ls^{3/2}
+ \left[\sqrt{(2V+e_1)^2+R^2}+25s^2 V\right],\qquad
+ R=Cs^2\sqrt{J_{11}J_{21}}<0.84 .
+\]
+By \eqref{eq:acute8} and \eqref{eq:acute13}, the total loss from all
+potentially negative terms in \eqref{eq:acute5}, divided by $s$, is at most
+\begin{align*}
+ &h^2\left[C^2(15+2.4\cdot4)+2(5.8)(0.9)(11.1+2.4\cdot2.3)
+  +5.8(60+2.4\cdot12)(0.9)^2h^2\right]\\
+ &\hspace{10mm}{}+4(5.8)h^2
+       \left[\sqrt{(1.8+2.3)^2+0.84^2}+0.9\right]^2 < 26+25=51 .
+\end{align*}
+Combining this with \eqref{eq:acute4} gives $(DL)''>3sDL>0$ and hence
+$F''(\alpha)>0$ throughout $0<\alpha\le2\pi/5$.
+
+\section{Pointwise and radial estimates for Green potentials on the disk}
+\label{app:green}
+We prove the estimates used in Section~\ref{sec:levels}. The subscript $z$
+specifies the observation point. Integrals against $\dd A$ use ordinary
+area, while $\norm{\cdot}$ uses area divided by $\pi$.
+
+\subsection{The kernel on the ground-state complement}
+For $W\in H_0^1(\D)$ with $W\perp\phi$ we claim
+\begin{equation}\label{eq:uniform-G}
+  |\partial_r GW(z)|\le\frac{3}{20}\norm{\nabla W},
+  \qquad
+  |GW(z)|\le\min\left\{0.19\norm{W},\ \frac{3}{20}(1-r)\norm{\nabla W}\right\}.
+\end{equation}
+Use the disk automorphism $w=(z+\zeta)/(1+\bar z\zeta)$. Then
+$G_z(w)=-(2\pi)^{-1}\log|\zeta|$ and its area Jacobian is
+$\rho^2/|1+\bar z\zeta|^4$. Angular integration of the power series gives
+\begin{equation}\label{eq:Y-exact}
+  Y(s):=8\pi^2\norm{G_z}^2
+   =\rho^2\sum_{k=0}^\infty\frac{s^k}{k+1}
+   =\rho\left(1-\sum_{k=1}^\infty\frac{s^k}{k(k+1)}\right)
+   \le\rho\left(1-\frac{s}{2}\right)\le\Phi(s),
+\end{equation}
+where the last inequality uses \eqref{eq:phi-chord-bounds}. Projecting
+$\pi G_z$ onto $\phi^\perp$ in $L^2$ reduces the squared norm from $Y/8$
+by $\Phi(s)^2/(\mu^2\Cphi)$. Maximizing $Y/8-Y^2/(\mu^2\Cphi)$ gives the
+upper bound $\mu^2\Cphi/256<0.19^2$.
+
+For the radial derivative we may take $z=r>0$. Put
+$\mathcal D(s)=\|\pi\partial_rG_r\|_{-1}^2$. Restriction to $\phi^\perp$
+in the energy inner product gives the squared functional norm
+\begin{equation}\label{eq:proj-D}
+  \mathcal D(s)-\frac{\phi'(r)^2}{\mu^3\Cphi}
+    =\mathcal D(s)-\frac{sB(s)^2}{4\mu\Cphi},
+  \qquad
+  B(s)=\int_0^1\Phi(st)\dd t,
+\end{equation}
+since $-\phi'(r)=\mu rB(s)/2$. We have $B'''\le0$, so Hermite
+interpolation at $0,0,1$ gives
+\begin{equation}\label{eq:avg-lower}
+  B(s)\ge 1-\frac{\mu}{8}s(1-s)+\bigl(B(1)-1\bigr)s^2
+      \ge b(s):=1-\frac{29}{40}s+\frac{5}{32}s^2,
+\end{equation}
+Here $\mu/8<29/40$ and $B(1)=2\sqrt{\Cphi/\mu}>69/160$.
+Appendix~\ref{app:series} proves the signed expansion
+\begin{equation}\label{eq:D-series}
+  32\mathcal D(s)=\frac{7}{12}+\frac{79}{36}s-\sum_{k=2}^\infty d_k s^k,
+  \qquad
+  d_k=\frac{2\bigl(3k^5+23k^4+53k^3+45k^2+14k+6\bigr)}{k^2(k-1)(k+1)^2(k+2)^2(k+3)}>0.
+\end{equation}
+Keeping the negative terms only through degree six gives an upper bound.
+In view of $8/(\mu\Cphi)>128/25$, it suffices to prove positivity on
+$[0,1]$ of the polynomial
+\[
+  Q(s)=32\left(\frac{3}{20}\right)^2-\frac{7}{12}-\frac{79}{36}s
+    +\sum_{k=2}^6 d_k s^k+\frac{128}{25}s\,b(s)^2.
+\]
+For a polynomial of degree at most $m$ the Bernstein representation is
+\begin{equation}\label{eq:bernstein}
+  q(s)=\sum_{i=0}^m\beta_i\binom{m}{i}s^i(1-s)^{m-i},
+  \qquad
+  \beta_i=\sum_{j=0}^i\frac{\binom{i}{j}}{\binom{m}{j}}[s^j]q(s).
+\end{equation}
+At $m=6$ the coefficients of $Q$ satisfy
+$1000(\beta_0,\ldots,\beta_6)>(136,624,667,492,251,55,24)$ componentwise
+by substitution. This proves the derivative bound in \eqref{eq:uniform-G}.
+The disk embedding $H_0^1\hookrightarrow L^p$ holds for every finite $p$,
+and elliptic regularity gives $GW\in W^{2,p}\hookrightarrow C^1$ for $p>2$.
+Thus point evaluation extends by density. Integrating the derivative
+radially from the boundary gives the bound containing $1-r$.
+
+\subsection{Quadratic and mixed sources}
+Retain the functions $B_0,b_2,b_h,b_\phi,A_0,A_+,T_W$ from
+Section~\ref{sec:levels}. Write $K=|\partial_rG_z(w)|$ and
+$K_+=(\partial_rG_z(w))_+$. We prove the estimates
+\[
+ G(|h|^2)\le x b_2,\qquad \pi\norm{G_z h}\le e b_h,\qquad
+ G(\phi|h|^2)\le x b_\phi ,
+\]
+together with
+\begin{equation}\label{eq:sources-all}\begin{aligned}
+  \int_\D KW^2\dd A &\le T_W(s), &
+  \int_\D K|h|^2\dd A &\le xA_0(s),\\
+  \int_\D K_+|h|^2\dd A &\le xA_+(s), &
+  \int_\D K_+\phi|h|^2\dd A &\le\frac{x}{6}.
+\end{aligned}\end{equation}
+Cauchy--Schwarz on the power series for $h$ yields
+$\rho^2|h(z)|^2\le x B_0(s)$. Under the automorphism above,
+$H=(h\circ w)w'$ has $\norm H=e$ and $|H(0)|^2\le xB_0$.
+In the normalized Bergman basis $\sqrt{k+1}\,\zeta^k$ the diagonal
+weights of $G(|H|^2)(0)$ and $\pi^2\norm{G_0H}^2$ are
+$1/[4(k+1)]$ and $1/[8(k+1)^2]$, respectively. Separating the constant
+mode gives the first two estimates. For the third use Cauchy--Schwarz
+with measure $G_z\dd A$ and
+$\phi^2|h|^2\le xB_0(1-3s/8)^2$.
+
+The kernel formula gives
+$|\nabla_zG_z(w)|=(1-|w|^2)/(2\pi|w-z|\,|1-\bar zw|)$.
+For $t=|w|$, we have
+\[
+ 2(1-rt)-(1+\sqrt\rho)(1-t^2)
+ =[(1+\sqrt\rho)t-r]^2/(1+\sqrt\rho)\ge0
+\]
+and $\operatorname{div}_w((w-z)/|w-z|)=1/|w-z|$.
+Integration by parts against $W^2$ followed by Cauchy--Schwarz yields
+$\int_\D KW^2\dd A\le2\norm W\norm{\nabla W}/(1+\sqrt\rho)$.
+
+Assume $x>0$. Rotate to $z=r$ and write $\zeta=t e^{i\theta}$.
+Then $2\pi\partial_rG_r(w)=\rho^{-1}(1/t-t)\cos\theta$, with the derivative
+taken before the change of variables. For $c(\theta)=|\cos\theta|$ or
+$(\cos\theta)_+$ let $K_c=K$ or $K_+$, respectively. In the normalized
+Bergman coefficients of $H$, the real symmetric matrix of
+$\rho\int_\D K_c|h|^2\dd A$ is
+\[
+  D_{ij}=\widehat c(i-j)\,\frac{2\sqrt{(i+1)(j+1)}}{(i+j+1)(i+j+3)}
+  \qquad(i,j\ge0),
+\]
+where $\widehat c(m)=(2\pi)^{-1}\int_{-\pi}^{\pi}c(\theta)e^{-im\theta}\dd\theta$.
+The entries in the following table are upper bounds.
+\[
+  \begin{tabular}{cccc}
+    \toprule
+    $c$ & $|D_{00}|$ & $\|(D_{0j})_{j\ge1}\|_{\ell^2}$ & $\|(D_{ij})_{i,j\ge1}\|_{\ell^2\to\ell^2}$ \\
+    \midrule
+    $|\cos\theta|$ & $17/40$ & $1/20$ & $9/40$ \\[2pt]
+    $(\cos\theta)_+$ & $3/14$ & $3/32$ & $1/6$ \\
+    \bottomrule
+  \end{tabular}
+\]
+For verification, set $R_j=(j+2)/[(j+1)(j+3)]$. The radial factor
+in $D_{ij}$ is at most $R_{i+j}$ by arithmetic--geometric mean, and
+$R_j$ decreases in $j$. For $(\cos\theta)_+$ the absolute Fourier
+coefficients at $0,\pm1,\pm2l$ are $1/\pi,1/4,1/[\pi(4l^2-1)]$ for
+$l\ge1$, with the remaining odd coefficients zero. For $|\cos\theta|$
+the even coefficients double and the odd ones vanish. Since
+$\sum_{l\ge1}(4l^2-1)^{-1}=1/2$, absolute row sums of the block
+$i,j\ge1$ for $|\cos\theta|$ are bounded by
+$\max\{(2R_2+R_4)/\pi,4R_4/\pi\}<9/40$, treating $i\le2$ and $i\ge3$
+separately. For $(\cos\theta)_+$ the bounds at $i=1$, at $i=2$, and for
+$i\ge3$ are respectively
+\[
+  \frac{R_2+R_4/2}{\pi}+\frac{R_3}{4},\qquad
+  \frac{R_4+R_6/2}{\pi}+\frac{R_3+R_5}{4},\qquad
+  \frac{R_6+R_4}{\pi}+\frac{R_5+R_7}{4},
+\]
+All three are less than $1/6$, and Schur's test gives the operator
+bounds. In row zero the radial factor is $2/[(j+3)\sqrt{j+1}]$.
+Using $\sum_{l\ge2}(4l^2-1)^{-2}\le1/90$, the squared norm of this row
+after deleting its first entry is at most
+$4[4/(75\cdot9)+4/(245\cdot90)]/\pi^2<(1/20)^2$ for $|\cos\theta|$.
+For the positive part the corresponding bound is $1/128+1/40^2<(3/32)^2$.
+
+Put $m_0=|H(0)|^2/x\le B_0$. If the table entries are $d_0,d_1,d_2$,
+the normalized quadratic form is at most
+\[
+ d_0m_0+2d_1\sqrt{m_0(1-m_0)}+d_2(1-m_0)\le d_2+d_1+(d_0-d_2)m_0 .
+\]
+Substitution gives the bounds involving $A_0,A_+$. Where $K_+>0$ one has
+$\Re\zeta>0$, $|w|>r$ and $1-|w|^2\le\rho(1-t^2)$. Hence
+$\phi(w)\le\rho(1-t^2)(1-3s/8)$. The extra radial weight multiplies the
+matrix majorant entry by $4/(i+j+5)$, at most $4/5,2/3,4/7$ on the
+three respective blocks. Thus
+\[
+  \frac{1}{x}\int_\D K_+\phi|h|^2\dd A
+    \le\left(1-\frac{3s}{8}\right)\left(\frac{53}{336}+\frac{8B_0(s)}{105}\right)
+    \le\left(1-\frac{3s}{8}\right)\left(\frac{53}{336}+\frac{3s}{35}\right)<\frac16,
+\]
+The last step uses $B_0\le9s/8$ and the maximum of a quadratic. This
+proves \eqref{eq:sources-all}. The case $x=0$ follows from $h=0$.
+
+\subsection{Cancellation in the linear potential}
+For $U=G(\phi h)$ we have $|U(z)|\le e\,v(s)$, where
+\begin{equation}\label{eq:v-linear}
+  v(s)=\sqrt3\,s\sqrt{(1-s)(1-s/4)}\,c_0(s),
+  \qquad
+  c_0(s)=\frac{354-286s+59s^2-5s^3}{7680}.
+\end{equation}
+We shall prove $v<0.019$ throughout $[0,1]$, $v<0.012$ on $s\le s_-$ and
+$v<0.0152$ on $s\ge s_+$. On $[s_-,s_+]$ we also have
+\begin{equation}\label{eq:u-slope}
+  |\partial_r U(z)|\le\frac{e}{16}.
+\end{equation}
+
+Since $(k+1)u^k\dd u$ moves to the right as $k$ increases and $\Phi$ is
+decreasing, \eqref{eq:free-profile} gives
+$(k+1)P_{k,\Phi}\le3P_{2,p_3}=3\rho c_0$ for $k\ge2$.
+Moreover $\sum_{k\ge2}s^k/(k+1)\le s^2(1-s/4)/(3\rho)$.
+Cauchy--Schwarz on the series for $U$ gives the stated $e\,v(s)$ bound.
+The cubic $c_0$ is decreasing and convex, with $c_0(1)\le3c_0(0)/8$.
+Use its endpoint chord and arithmetic--geometric mean to get
+\[
+  v(s)\le\sqrt3\,c_0(0)\,s\left(1-\frac{5s}{8}\right)^2
+      \le\frac{32\sqrt3}{135}\,c_0(0)<0.019.
+\]
+In the inner disk use $s\sqrt{1-s}\le s_-\sqrt{1-s_-}$ and bound the two
+remaining factors by their values at zero. In the outer region use
+$s\sqrt{1-s}\le2/(3\sqrt3)$ and bound the remaining decreasing factors
+at $s_+$. This gives the sharper constants on the two regions.
+
+To preserve the cancellation in the derivative of each mode, put
+\[
+  A(s)=\int_s^1\Phi(t)\dd t,\qquad
+  B_k(s)=\int_0^1 u^k\bigl[\Phi(u)+s\Phi(su)\bigr]\dd u.
+\]
+Summing \eqref{eq:free-profile} gives
+$4U(z)=\int_s^1\int_0^1\Phi(tu)h(uz)\dd u\dd t$. Differentiate, replace
+$r\partial_rh(uz)$ by $u\partial_uh(uz)$ and integrate by parts in $u$.
+Using $\partial_t[t\Phi(tu)]=\Phi(tu)+tu\Phi'(tu)$ yields
+\[
+  4r\partial_r U(z)=A(s)h(z)-\int_0^1\bigl[\Phi(u)+s\Phi(su)\bigr]h(uz)\dd u.
+\]
+Thus for $e>0$, $16|\partial_r U|^2/e^2\le
+\sum_{k\ge2}(k+1)s^{k-1}(A-B_k)^2$.
+Integrating \eqref{eq:phi-chord-bounds} for $s_-\le s\le s_+<2/3$ gives
+\[
+  \frac{13}{40}\rho^2\le\rho^2\left(\frac{11}{40}+\frac{3\rho}{20}\right)
+    \le A(s)\le\rho^2\left(\frac{5}{16}+\frac{5\rho}{48}+\frac{\rho^2}{64}\right)
+    \le\frac{5}{12}\rho^2.
+\]
+Using $\Phi(u)\le(1-u)(1-3u/8)$ also yields
+\[
+  B_k(s)\le c_k+\frac{s}{k+1}-\left(\frac{11}{8(k+2)}-\frac{1}{4(k+3)}\right)s^2,
+  \qquad
+  c_k=\frac{1}{k+1}-\frac{11}{8(k+2)}+\frac{3}{8(k+3)}.
+\]
+Completion of the square in $s$ gives upper bounds
+$10771/67680,117/1120,41549/546000$ for $B_2,B_3,B_4$, respectively.
+In particular $B_2\le b_2'=4/25$, $B_3\le b_3'=21/200$, and for $k\ge4$,
+$B_k\le B_4<(13/20)(1-s_+)^2\le2A$. Put $g=(13/20)\rho^2\le2A$.
+For $k=2,3$ we have $(A-B_k)^2\le A^2+b_k'(b_k'-g)_+$, with the
+bound $A^2$ for the remaining modes. Set
+\[
+  P_0(s)=\frac{25}{144}s(3-2s)\rho^2,\quad
+  P_1(s)=P_0(s)+3sb_2'(b_2'-g),\quad
+  P_2(s)=P_1(s)+4s^2 b_3'(b_3'-g).
+\]
+Since $b_2'>b_3'$, summing gives
+$16|\partial_rU|^2/e^2\le\max(P_0,P_1,P_2)$. We used
+$\sum_{k\ge2}(k+1)s^{k-1}=s(3-2s)/\rho^2$. The inequality
+$(3-2s)\rho^2\le3(1-8s/9)^3$ gives
+$P_0\le25\cdot243/(48\cdot2048)<1/16$. For $i=1,2$ use
+\eqref{eq:bernstein} to expand $1/16-P_i(2u/3)$ in the degree-four
+Bernstein basis on $[0,1]$. Its coefficients multiplied by $1000$ strictly
+exceed $(62,14,23,22,12)$ and $(62,14,40,33,6)$ componentwise,
+respectively. Hence $\max P_i<1/16$, proving \eqref{eq:u-slope}.
+
+\section{The signed series for the radial Green energy}\label{app:series}
+It remains to prove \eqref{eq:D-series}. Set $s=r^2$, $w=t e^{i\theta}$ and
+$F_r(w)=\pi\partial_r G_r(w)$. In the Fourier cosine expansion of the
+logarithmic kernel derivative the constant mode is
+$-(2r)^{-1}\mathbf 1_{\{t<r\}}$. For $k\ge1$ the coefficient is
+\[
+  f_k(t)=\frac{1}{2r}\begin{cases}
+    -\bigl[(t/r)^k+(tr)^k\bigr], & t<r,\\[3pt]
+    (r/t)^k-(rt)^k, & t>r.
+  \end{cases}
+\]
+Write the corresponding mode of the potential as $t^k p_k(t)\cos(k\theta)$.
+Then $-(t^{2k+1}p_k')'=t^{k+1}f_k(t)$ with $p_k(1)=0$. Integration by
+parts gives its contribution to $\mathcal D(s)$ as
+\[
+  E_k=\int_0^1 t^{-2k-1}\left(\int_0^t f_k(v)v^{k+1}\dd v\right)^2\dd t,
+\]
+The constant mode has twice the angular normalization and contributes
+$E_0=s(1-2\log s)/32$. Evaluate the inner integral separately for $t<r$
+and $t>r$, then use $\xi=s/t^2$ in the second range. This gives
+\begin{equation}\label{eq:modal-kernel}
+  \frac{32E_k}{s}=\frac{(1+s^k)^2}{(k+1)^2(k+2)}
+    +\int_s^1\xi^{k-3}\left(1-\frac{k+2}{k+1}\xi-\frac{(s/\xi)^k}{k+1}\right)^2\dd\xi.
+\end{equation}
+By angular orthogonality, $\mathcal D(s)=\sum_{k\ge0}E_k$. Write
+$L=\sum_{j\ge1}s^j/j$ and $T=\sum_{j\ge1}s^j/j^2$.
+For $k\ge3$ integration of \eqref{eq:modal-kernel} gives
+$32E_k/s=c_k+s^kh_k(s)$, where
+\begin{align*}
+  c_k &= \frac{1}{k+2}-\frac{3}{k+1}+\frac{4}{k}-\frac{3}{k-1}+\frac{1}{k-2},\\
+  h_k(s) &= \frac{3}{s(k-1)}+\frac{2s^2+1}{s^2(k+2)}
+    +\frac{s-2}{s^2(k+1)}+\frac{(s+1)^2}{s^2(k+1)^2}
+    -\frac{1}{s^2(k-2)}-\frac{4}{k}.
+\end{align*}
+The constant terms telescope to $\sum_{k\ge3}c_k=5/12$. Direct integration
+of the first two nonconstant modes gives
+\[
+  \frac{32E_1}{s}=3\log s-\frac{37s}{12}+\frac{17}{6}+\frac{7}{12s},
+  \qquad
+  \frac{32E_2}{s}=-\log s-\frac{25s^2}{18}+\frac{32s}{9}-\frac{37}{18},
+\]
+Their logarithmic terms cancel the logarithm in $32E_0/s$. All series
+converge absolutely for $0<s<1$, so shifting indices in the sum of
+$s^kh_k(s)$ gives
+\[
+  32\mathcal D(s)=\left(1+\frac{2}{s}+\frac{1}{s^2}\right)T
+    +\left(-2s+\frac{3}{s}-\frac{2}{s^2}+\frac{1}{s^3}\right)L
+    -\frac{s}{2}-4+\frac{1}{2s}-\frac{1}{s^2}.
+\]
+The coefficients of $s^{-2},s^{-1}$ vanish. The constant and linear
+coefficients are $7/12$ and $79/36$. For $n\ge2$ the negative of the
+coefficient of $s^n$ is
+\[
+  \frac{2}{n-1}-\frac{3}{n+1}+\frac{2}{n+2}-\frac{1}{n+3}
+    -\frac{1}{n^2}-\frac{2}{(n+1)^2}-\frac{1}{(n+2)^2}.
+\]
+Putting these fractions over a common denominator gives the positive
+coefficient $d_n$ in \eqref{eq:D-series}. In particular the truncated
+series used in Appendix~\ref{app:green} is an upper bound throughout its
+stated interval.
+
+\enlargethispage{1.5\baselineskip}
+\begin{thebibliography}{9}
+
+\bibitem{brasco}
+L. Brasco, \emph{On torsional rigidity and principal frequencies: an
+invitation to the Kohler--Jobin rearrangement technique},
+ESAIM Control Optim. Calc. Var. \textbf{20} (2014), 315--338.
+\href{https://doi.org/10.1051/cocv/2013065}{doi:10.1051/cocv/2013065}.
+
+\bibitem{cheng}
+\emph{Convexity of polygonal Dirichlet eigenvalue minimizers}, manuscript
+made available by Zhuo Cheng, version \texttt{4a79a2a}, Theorem~1.1,
+Sections~2--5 and Appendices~A and~B.
+\href{https://github.com/ChengZhuoCZ/polygonal-faber-krahn-convexity/blob/4a79a2ae9a56d9274503b1f099634a6db8e19ffe/convexity_polygonal_minimizers_global.tex}{Archived source at the cited commit}.
+
+\bibitem{SC}
+T. A. Driscoll and L. N. Trefethen, \emph{Schwarz--Christoffel Mapping},
+Cambridge Monographs on Applied and Computational Mathematics, vol.~8,
+Cambridge University Press, Cambridge, 2002.
+
+\bibitem{kato}
+T. Kato, \emph{Perturbation Theory for Linear Operators}, Classics in
+Mathematics, Springer-Verlag, Berlin, 1995.
+
+\bibitem{ps}
+G. P\'olya and G. Szeg\H{o}, \emph{Isoperimetric Inequalities in Mathematical
+Physics}, Annals of Mathematics Studies, vol.~27, Princeton University
+Press, Princeton, NJ, 1951.
+
+\bibitem{unified}
+\emph{A unified analytic proof of the polygonal P\'olya--Szeg\H{o}
+conjecture}, working manuscript in Chinese, November 22, 2026, Sections~2--4
+and Appendix~A.
+
+\bibitem{wang}
+H. Wang, \emph{The P\'olya--Szeg\H{o} inequalities for polygons}, preprint,
+2026. \href{https://arxiv.org/abs/2611.22305v1}{arXiv:2611.22305v1}.
+
+\end{thebibliography}
+\end{document}
